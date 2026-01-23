@@ -1,11 +1,12 @@
-class Interpreter:
+class Lexer:
     def __init__(self, sourceCode):
         self._sourceCode = sourceCode
         self._lineNumber = 0
         self._numErrors = 0
         self._errors = []
+        self._tokenQueue = []
     
-    def raiseError(self, message):
+    def addError(self, message):
         self._numErrors += 1
         self._errors.append(f"Error at line {self._lineNumber + 1}: {message}")
   
@@ -17,6 +18,9 @@ class Interpreter:
     
     def getNumErrors(self):
         return self._numErrors
+    
+    def getTokenQueue(self):
+        return self._tokenQueue
     
     def jumpToLineNumber(self, lineNumber):
         self._lineNumber = lineNumber
@@ -33,12 +37,13 @@ class Interpreter:
     def setSourceCode(self, sourceCode):
         self._sourceCode = sourceCode
         
-    
-    
-    
+    def appendToTokenQueue(self, token):
+        self._tokenQueue.append(token)
+        
     def interpret(self, statements):
         pass
     
     
 
+lexer1 = Lexer("print('Hello, World!')")
 
