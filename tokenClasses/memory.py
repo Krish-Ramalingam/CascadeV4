@@ -16,6 +16,8 @@ class GlobalMemory:
     def removeVariable(self, name):
         if name in self._variables:
             del self._variables[name]
+            
+    
         
         
     

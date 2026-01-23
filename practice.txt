@@ -1,0 +1,6 @@
+inp y 
+if x > 0 out x else inp y
+y(x) = x^2 
+out y
+inp x
+out y

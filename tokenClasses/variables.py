@@ -21,6 +21,19 @@ class Variable:
         if str(type(self._value))[8:-2] != self._type:
             return False
         return True
+    
+    def setValue(self, value):
+        self._value = value
+        
+    def setType(self, type):
+        self._type = type
+        
+    def setScope(self, scope):
+        self._scope = scope
+        
+    
+    
+    
 
 class Array(Variable):
     def __init__(self, name: str, value: list, scope, length: int):
