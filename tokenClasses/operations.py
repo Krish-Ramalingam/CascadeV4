@@ -16,6 +16,7 @@ class Operation:
     def setPrecedence(self, precedence):
         self._precedence = precedence
 
+
 class ArithmeticOperation(Operation):
     def __init__(self, symbol, precedence, associativity):
         super().__init__(symbol, precedence, associativity)

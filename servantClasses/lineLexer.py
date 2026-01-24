@@ -39,6 +39,10 @@ class LineLexer:
         else:
             self._mode = None
     
+    def tokeniseExpression(self, expression: str):
+        stack = []
+        
+    
     def tokenize(self):
         if self._mode is None:
             self.modeInitialise()
@@ -52,23 +56,23 @@ class LineLexer:
             self.tokenizeEvaluation()
         
     def tokenizeAssignment(self):
-        self._finalTokens.append("var")
+        self._finalTokens.append(("var", None))
         self._finalTokens.append(("id", self._tempTokens[1]))
-        self._finalTokens.append("eq")
-        expression = " ".join(self._tempTokens[2:])
+        self._finalTokens.append(("eq", None))
+        expression = " ".join(self._tempTokens[3:])
         self._finalTokens.append(("expr", expression))
     
     def tokenizeOutput(self):
-        self._finalTokens.append("out")
+        self._finalTokens.append(("out", None))
         expression = " ".join(self._tempTokens[1:])
         self._finalTokens.append(("expr", expression))
         
     def tokenizeInput(self):
-        self._finalTokens.append("inp")
+        self._finalTokens.append(("inp", None))
         self._finalTokens.append(("id", self._tempTokens[1]))
 
     def tokenizeEvaluation(self):
-        self._finalTokens.append("eval")
+        self._finalTokens.append(("eval", None))
         expression = " ".join(self._tempTokens[1:])
         self._finalTokens.append(("expr", expression))
 
