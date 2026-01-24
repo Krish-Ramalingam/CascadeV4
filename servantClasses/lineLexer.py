@@ -39,9 +39,24 @@ class LineLexer:
         else:
             self._mode = None
     
+    def variablesInExpression(self, expression: str):
+        variablesInExpr = False
+        for x in expression:
+            if type(x) == str:
+                variablesInExpr = True
+        return variablesInExpr
+    
     def tokeniseExpression(self, expression: str):
-        stack = []
-        
+        if self.variablesInExpression(expression):
+            return self.tokeniseVariablesInExpression(expression)
+        else:
+            return self.tokeniseArithmeticExpression(expression)
+            
+    def tokeniseArithmeticExpression(self, expression: str):
+        pass
+
+    def tokeniseVariablesInExpression(self, expression: str):
+        pass
     
     def tokenize(self):
         if self._mode is None:
