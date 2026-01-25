@@ -1,6 +1,14 @@
-inp y 
-if x > 0 out x else inp y
-y(x) = x^2 
-out y  
-inp x
-out y   
+if x > y + 1 {
+    out x + y          // Output sum
+}
+
+out 4
+out tree
+if tree > 4 {
+    out x
+    out y
+    for i in 1..10 {
+                        // ignore
+    }
+}
+
