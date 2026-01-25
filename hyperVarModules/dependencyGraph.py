@@ -14,7 +14,7 @@ class dependencyGraph:
                 return node
         return None
     
-    def addEdge(self, fromNodeName, toNodeName):
+    def addEdgeFromXToY(self, fromNodeName, toNodeName):
         fromNode = self.findNode(fromNodeName)
         toNode = self.findNode(toNodeName)
         if fromNode and toNode:
@@ -48,7 +48,7 @@ class dependencyGraph:
             for edge in node.getEdges():
                 if edge.getName() not in visited:
                     visited.add(edge.getName())
-                    self.descendants(edge.name, visited)
+                    self.descendants(edge.getName(), visited)
         return visited
     
     def ancestors(self, nodeName, visited=None):
@@ -87,3 +87,18 @@ class Node:
     
     def setEdges(self, edges: list):
         self._edges = edges
+        
+myDepGraph = dependencyGraph()
+myDepGraph.addNode(Node("A"))
+myDepGraph.addNode(Node("B"))
+
+myDepGraph.addEdgeFromXToY("A", "B")
+print(myDepGraph.getEdges())
+print(myDepGraph.returnAllPointingTo("B"))
+print(myDepGraph.returnAllPointedFrom("A"))
+print(myDepGraph.descendants("A"))
+print(myDepGraph.ancestors("B"))
+myDepGraph.addNode(Node("C"))
+myDepGraph.addEdgeFromXToY("B", "C")
+print(myDepGraph.descendants("A"))
+print(myDepGraph.ancestors("C"))
