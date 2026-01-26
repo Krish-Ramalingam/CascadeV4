@@ -25,32 +25,126 @@ class BinOp:
     
 class AriBinOp(BinOp):
     def __init__(self, left, right):
-        super.__init(self, left, right)
+        super().__init__(left, right)
         self._precedence = 0
         self._associativity = "NA"
-        self._symbol =  "+"
-
-    def getPr
-
-
-        
-class Add(AriBinOp):
-    def __init__(self, left, right):
-        super.__init(self, left, right)
-        self._precedence = 
-        self._associativity = 
-        self._symbol = 
 
     def getPrecedence(self):
         return self._precedence
     
     def setPrecedence(self, precedence):
         self._precedence = precedence
+        
+    def getAssociativity(self):
+        return self._associativity
+    
+    def setAssociativity(self, associativity):
+        self._associativity = associativity
+        
+class Add(AriBinOp):
+    def __init__(self, left, right):
+        super().__init__(left, right)
+        self._precedence = 1
+        self._associativity = "LEFT"
+        
+class Subtract(AriBinOp):
+    def __init__(self, left, right):
+        super().__init__(left, right)
+        self._precedence = 1
+        self._associativity = "LEFT"
+        
+class Multiply(AriBinOp):
+    def __init__(self, left, right):
+        super().__init__(left, right)
+        self._precedence = 2
+        self._associativity = "LEFT"
+              
+class Divide(AriBinOp):
+    def __init__(self, left, right):
+        super().__init__(left, right)
+        self._precedence = 2
+        self._associativity = "LEFT"
+        
+class Exponent(AriBinOp):
+    def __init__(self, left, right):
+        super().__init__(left, right)
+        self._precedence = 3
+        self._associativity = "RIGHT"
+        
+        
+class AST:
+    def __init__(self, root):
+        self._root = root
+        
+    def getRoot(self):
+        return self._root
+    
+    def preOrderTraversal(self, node):
+        if node is not None:
+            print(node.__class__.__name__)
+            self.preOrderTraversal(node.getLeft())
+            self.preOrderTraversal(node.getRight())
+            
+    def inOrderTraversal(self, node):
+        if node is not None:
+            self.inOrderTraversal(node.getLeft())
+            print(node.__class__.__name__)
+            self.inOrderTraversal(node.getRight())
+            
+    def postOrderTraversal(self, node):
+        if node is not None:
+            self.postOrderTraversal(node.getLeft())
+            self.postOrderTraversal(node.getRight())
+            print(node.__class__.__name__)
+            
+        
+# Example usage:
+ast = AST(Add(Multiply(None, None), Subtract(None, None)))
+print("Pre-order Traversal:")
+ast.preOrderTraversal(ast.getRoot())
+
+add = Add(None, None)
+print(add.getPrecedence())
 
 
+# tokens to tree structure
+tokenExample = [("int", 3), ("+", None), ("int", 2), ("*", None), ("int", 2)]
 
-
-
+class TokenParser:
+    def __init__(self, tokens):
+        self._tokens = tokens
+        
+    def parse(self):
+        # Simple parser implementation (for demonstration purposes)
+        output_queue = []
+        operator_stack = []
+        
+        precedence = {
+            "+": 1,
+            "-": 1,
+            "*": 2,
+            "/": 2,
+            "^": 3
+        }
+        
+        for token in self._tokens:
+            if token[0] == "int":
+                output_queue.append(token)
+            else:
+                while (operator_stack and 
+                       precedence[operator_stack[-1][0]] >= precedence[token[0]]):
+                    output_queue.append(operator_stack.pop())
+                operator_stack.append(token)
+        
+        while operator_stack:
+            output_queue.append(operator_stack.pop())
+        
+        return output_queue
+    
+    
+"""
+Need to convert to post order using shunting yard algorithm, then convert to a tree.
+"""
 
 
 
