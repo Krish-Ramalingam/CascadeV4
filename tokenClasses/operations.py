@@ -1,14 +1,45 @@
-class Operation:
-    def __init__(self, symbol, precedence):
-        self._symbol = symbol
-        self._precedence = precedence
-        self._class = None
+class BinOp:
+    def __init__(self, left, right):
+        self._type = None
+        self._left = left
+        self._right = right
+     
+    def getType(self):
+        return self._type
     
-    def getSymbol(self):
-        return self._symbol
+    def setType(self):
+        return self._type
+
+
+    def setLeft(self, l):
+        self._left = l
+
+    def setRight(self, r):
+        self._right = r
+
+    def getLeft(self):
+        return self._left
+
+    def getRight(self):
+        return self._right
     
-    def setSymbol(self, symbol):
-        self._symbol = symbol
+class AriBinOp(BinOp):
+    def __init__(self, left, right):
+        super.__init(self, left, right)
+        self._precedence = 0
+        self._associativity = "NA"
+        self._symbol =  "+"
+
+    def getPr
+
+
+        
+class Add(AriBinOp):
+    def __init__(self, left, right):
+        super.__init(self, left, right)
+        self._precedence = 
+        self._associativity = 
+        self._symbol = 
 
     def getPrecedence(self):
         return self._precedence
@@ -17,8 +48,93 @@ class Operation:
         self._precedence = precedence
 
 
-class ArithmeticOperation(Operation):
-    def __init__(self, symbol, precedence, associativity):
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"""
+class ArithmeticOperation(BinaryOperation):
+    def __init__(self, symbol, precedence, left, right, associativity):
         super().__init__(symbol, precedence, associativity)
         self._associativity = associativity
         
@@ -30,47 +146,47 @@ class ArithmeticOperation(Operation):
 
 class Add(ArithmeticOperation):
     def __init__(self):
-        super().__init__(symbol="+", precedence=1, associativity="LEFT")
+        super().__init__(left, symbol="+", precedence=1, associativity="LEFT")
         self._class = "ArithmeticOperation"
         
 class Subtract(ArithmeticOperation):
     def __init__(self):
-        super().__init__(symbol="-", precedence=1, associativity="LEFT")
+        super().__init__(symbol="-", precedence=1, left, right, associativity="LEFT")
         self._class = "SubtractionOperation"
 
 class Multiply(ArithmeticOperation):
     def __init__(self):
-        super().__init__(symbol="*", precedence=2, associativity="LEFT")
+        super().__init__(symbol="*", precedence=2, left, right, associativity="LEFT")
         self._class = "MultiplicationOperation"
 
 class Divide(ArithmeticOperation):
     def __init__(self):
-        super().__init__(symbol="/", precedence=2, associativity=None)
+        super().__init__(symbol="/", precedence=2, left, right associativity=None)
         self._class = "DivideOperation"
 
 class IntegerDivide(ArithmeticOperation):
     def __init__(self):
-        super().__init__(symbol="//", precedence=2, associativity=None)
+        super().__init__(symbol="//", precedence=2, left, right associativity=None)
         self._class = "IntegerDivideOperation"
         
 class Modulo(ArithmeticOperation):
     def __init__(self):
-        super().__init__(symbol="%", precedence=2, associativity=None)
+        super().__init__(symbol="%", precedence=2, left, right associativity=None)
         self._class = "ModuloOperation"
         
 class Exponent(ArithmeticOperation):
     def __init__(self):
-        super().__init__(symbol="^", precedence=3, associativity="RIGHT")
+        super().__init__(symbol="^", precedence=3, left, right, associativity="RIGHT")
         self._class = "ExponentOperation"
         
 class LogicalOperation(Operation):
-    def __init__(self, symbol, precedence):
+    def __init__(self, symbol, precedence, left, right):
         super().__init__(symbol, precedence)
         self._class = "LogicalOperation"
         
 class And(LogicalOperation):
     def __init__(self):
-        super().__init__(symbol="AND", precedence=1)
+        super().__init__(symbol="AND", precedence=1, left, right)
         self._class = "AndOperation"
         
 class Or(LogicalOperation):
@@ -147,7 +263,5 @@ class DivideAssign(AssignmentOperation):
         super().__init__(symbol="/=")
         self._class = "DivideAssignOperation"
 
-class binOperation(Operation):
-    def __init__(self, symbol, precedence):
-        super().__init__(symbol, precedence)
-        self._class = "BinaryOperation"
+add  =  Add()
+"""
