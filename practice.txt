@@ -12,3 +12,7 @@ if tree > 4 {
     }
 }
 
+x = 5
+y = 2x + 1
+out y
+

@@ -10,8 +10,6 @@ line6 = "out (x + y) // Output sum"
 line7 = "}"
 
 
-
-
 class LineLexer:
     def __init__(self):
         self._line = ""
@@ -94,7 +92,6 @@ class LineLexer:
         Returns:
             list: A list of tokens (variables and operators).
         """
-        print("Tokenising logical expression:", expr)
         tokens = []
         current_variable = ''
         current_number = ''
@@ -191,7 +188,6 @@ class LineLexer:
         self._finalTokens.append(("=", None))
         expression = " ".join(self._tempTokens[3:])
         tokenizedExpr = self.tokeniseExpression(expression)
-        print("Tokenized expression:", tokenizedExpr)
         self._finalTokens.extend(tokenizedExpr)
        
     def tokenizeOutput(self):
@@ -203,9 +199,6 @@ class LineLexer:
 
     def tokenizeControl(self):
         # expression in the form key (condition) { ... }
-        
-        print("Tokenizing control structure:", self._tempTokens)
-        print("Temp tokens:", self._tempTokens)
         
         controlKey = self._tempTokens[0]
         conditionEnd = self._tempTokens.index('{')

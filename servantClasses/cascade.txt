@@ -1,7 +1,2 @@
-var y = 1
+var x = 2
 out x
-
-while x > 10 {
-    out x
-    var x = x - 1
-}

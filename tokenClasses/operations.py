@@ -147,3 +147,7 @@ class DivideAssign(AssignmentOperation):
         super().__init__(symbol="/=")
         self._class = "DivideAssignOperation"
 
+class binOperation(Operation):
+    def __init__(self, symbol, precedence):
+        super().__init__(symbol, precedence)
+        self._class = "BinaryOperation"
