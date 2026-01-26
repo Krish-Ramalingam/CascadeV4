@@ -1,24 +1,11 @@
 CascadeV4 is a high-level dynamic programming language, revamped for the 4th time to make more extensive use of OOP. To run any file, execute main.py.
 
-Lexer
+Lexer: Program File -> Token Stream
 
-Inputs: Program File
+Parser: Token Stream -> AST
 
-Outputs: Token Stream
+Interpreter: AST > Execution
 
-Parser
-
-Inputs: Token Stream
-
-Outputs: AST
-
-Interpreter
-
-Inputs: AST
-
-Outputs: Execution of AST
-
-Planning on adding environments to handle global and local scope, as well as for functions.
-Maybe add OOP or maths libraries as a stretch.
+Planning on adding environments to handle global and local scope, as well as for functions. Maybe add OOP or maths libraries as a stretch.
 
 End date deadline: End of Februrary
