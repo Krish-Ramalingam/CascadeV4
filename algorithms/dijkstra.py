@@ -19,7 +19,7 @@ def dijkstraShuntingYard(tokens):
         beneathOperation = peek(opstack)
         prec = getPrecedence(beneathOperation)
         if prec = False:
-            return "e"
+            return "error"                                       #need to change to make stuff more robust
 
 
 
