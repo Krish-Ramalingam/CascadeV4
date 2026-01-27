@@ -6,13 +6,30 @@ def dijkstraShuntingYard(tokens):
         "/": 4,
         "^": 5,
         "(": 6,
-        ")": 7
+        ")": 6
     }
+
+    def peek(stack):
+        return stack[len(stack)-1]
     
     def getPrecendence(op):
-        return precedence[op] if op in precedence else 0
+        return precedence[op] if op in precedence else False
     
+    def attemptToOpStack(token):
+        beneathOperation = peek(opstack)
+        prec = getPrecedence(beneathOperation)
+        if prec = False:
+            return "e"
+
+
+
     datstack = []
     opstack = []
+    
+    for tok in tokens:
+        if tok.isnumeric():
+            datstack.append(tok)
+        elif getPrecedence(tok) != False:
+            attemptToOpStack()
     
     
