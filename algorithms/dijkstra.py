@@ -1,16 +1,13 @@
 def dijkstraShuntingYard(tokens):
 
     # Fairly complicated algorithm...
-
     """
     1) Iterate through the tokens, addding all data found to the datstack,
     2) For op tokens, if in ascending precedence, fine, like -+^.
     3) if not in that sequence, ie ^-, need to go back and pop stuff and append on the end
     4) Once done, reverse the opstack, and then append to the end
     """
-
     # hopefully extend to unary ops and can do a full program code.
-
 
     precedence = {
         "-": 1,
@@ -21,10 +18,12 @@ def dijkstraShuntingYard(tokens):
         "(": 6,
         ")": 6
     }
-    
-    def fileRest():
-        pass
 
+    def fileRest():
+        retstack.extend(datstack)
+        opstack.reverse()
+        retstack.extend(opstack)   
+        
     def getType(tok):
         if tok[0] in ["var", "int", "float"]:
             return "dat"
@@ -37,20 +36,26 @@ def dijkstraShuntingYard(tokens):
         return stack[len(stack)-1]
     
     def getPrecedence(op):
-        return precedence[op] if op in precedence else False
+        return precedence[op] if op in precedence else "err"
     
-    def attemptToRetStack(token):
+    def attemptToRetStack(token, ticker):
         print(opstack)
+        print("yoho!")
         if len(opstack) != 0:
 
             beneathOperation = peek(opstack)
+            print(beneathOperation[0])
+            print(token[0])
             lastprec = getPrecedence(beneathOperation[0])
             currprec = getPrecedence(token[0])
-
-            if currprec or lastprec == False:
-                return "error"
-                
-            if lastprec > currprec:
+            print(lastprec)
+            print(currprec)
+            if currprec == "err" or lastprec == "err":
+                print("AAAAA", currprec, lastprec)
+                return "error" 
+            print(beneathOperation[0], token[0], "AAAAAA")    
+            if lastprec > currprec and ticker==False:
+                print("bleep blorp")
                 retstack.append(datstack[-2])
                 retstack.append(datstack[-1])
                 print("yo")
@@ -58,30 +63,46 @@ def dijkstraShuntingYard(tokens):
                 datstack.pop()
                 opToAdd = opstack.pop()
                 retstack.append(opToAdd)
-                return True
-            
+                attemptToRetStack(token, True)
+            if lastprec > currprec and ticker==True:
+                retstack.append(datstack[-1])
+                datstack.pop()
+                opToAdd = opstack.pop()
+                retstack.append(opToAdd)
+                attemptToRetStack(token, True)
+                
     datstack = []
     opstack = []
     retstack = []
 
     for tok in tokens:
         t = getType(tok)
-        print(t)
         if t == "dat":
             datstack.append(tok)
         if t == "op":
-            attemptToRetStack(tok)
+            print(tok, "yoop")
+            attemptToRetStack(tok, False)
             opstack.append(tok)
+            
+    fileRest()
 
     return (datstack, opstack, retstack)
 
 
 print(dijkstraShuntingYard([
-    ("int","2"), 
+    ("int", 2), 
     ("+", None), 
-    ("int", "3")
+    ("int", 3),
+    ("*", None),
+    ("int", 4),
+    ("-", None),
+    ("int", 5),
+    ("/", None),
+    ("int", 67)
 ]))
 
 
     
     
+if 3 == False:
+    print("asosienoi")
