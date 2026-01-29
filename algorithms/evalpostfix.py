@@ -23,6 +23,23 @@ def evalPostExpr(tokenisedExpr):
             result = performOperation(firstDat, secondDat, token)
             ramQueue[1] = result
             ramQueue = ramQueue[1:]
+    return ramQueue[0]
 
 
-# performOperation(first
+performOperation(first, second, op):
+    #assumption that first and second are numbers
+    f = int(first[0])
+    s = int(second[0])
+    match op[0]
+        case "+":
+            return f+s
+        case "-":
+            return f-s
+        case "/":
+            return f/s
+        case "*":
+            return f*s
+        case "^":
+            return f**s
+
+    
