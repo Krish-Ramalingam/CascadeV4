@@ -39,8 +39,6 @@ def dijkstraShuntingYard(tokens):
         return precedence[op] if op in precedence else "err"
     
     def attemptToRetStack(token, ticker):
-        print(opstack)
-        print("yoho!")
         if len(opstack) != 0:
 
             beneathOperation = peek(opstack)
@@ -80,29 +78,9 @@ def dijkstraShuntingYard(tokens):
         if t == "dat":
             datstack.append(tok)
         if t == "op":
-            print(tok, "yoop")
             attemptToRetStack(tok, False)
             opstack.append(tok)
             
     fileRest()
 
-    return (datstack, opstack, retstack)
-
-
-print(dijkstraShuntingYard([
-    ("int", 2), 
-    ("+", None), 
-    ("int", 3),
-    ("*", None),
-    ("int", 4),
-    ("-", None),
-    ("int", 5),
-    ("/", None),
-    ("int", 67)
-]))
-
-
-    
-    
-if 3 == False:
-    print("asosienoi")
+    return retstack
