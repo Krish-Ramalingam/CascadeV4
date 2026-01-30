@@ -2,7 +2,6 @@
 evalpostfix.py used to strict evaluate any postfix expressions iteratively rather than recursively
 aim to use if space becomes an issue
 """
-import dijkstra as k
 
 postExpr = [("int", 3), ("int", 2), ("int", 5), ("+", None), ("*", None)]
 
@@ -23,7 +22,6 @@ def performOperation(first, second, op):
             return s**f
 
 def evalPostExpr(tokenisedExpr):
-    print(tokenisedExpr)
     def getType(tok):
         if tok[0] in ["var", "int", "float"]:
             return "dat"
@@ -49,7 +47,8 @@ def evalPostExpr(tokenisedExpr):
 
 
 
-
+"""
+import dijikstra as k
 
 print(evalPostExpr((k.dijkstraShuntingYard(
     [
@@ -65,3 +64,4 @@ print(evalPostExpr((k.dijkstraShuntingYard(
     ]   
 ))))
 
+"""

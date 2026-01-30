@@ -250,9 +250,15 @@ class Lexer(LineLexer):
             allTokens.extend(tokens)
         return allTokens
     
-    
-    
-    
+def genTokStream():
+    script_dir = os.path.dirname(__file__)
+    file_path = os.path.join(script_dir, "cascading.txt") 
+    myLexer = Lexer()
+    tokenStream = myLexer.lexFile(file_path)
+    return tokenStream
+
+
+"""
 script_dir = os.path.dirname(__file__)
 file_path = os.path.join(script_dir, "cascade.txt") 
 myLexer = Lexer()
@@ -262,3 +268,4 @@ for t in tokenStream:
         print(t[0])
     else:
         print(t[0], t[1])
+"""
