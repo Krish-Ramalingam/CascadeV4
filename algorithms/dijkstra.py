@@ -42,21 +42,15 @@ def dijkstraShuntingYard(tokens):
         if len(opstack) != 0:
 
             beneathOperation = peek(opstack)
-            print(beneathOperation[0])
-            print(token[0])
             lastprec = getPrecedence(beneathOperation[0])
             currprec = getPrecedence(token[0])
-            print(lastprec)
-            print(currprec)
             if currprec == "err" or lastprec == "err":
-                print("AAAAA", currprec, lastprec)
                 return "error" 
-            print(beneathOperation[0], token[0], "AAAAAA")    
+          
             if lastprec > currprec and ticker==False:
-                print("bleep blorp")
+                
                 retstack.append(datstack[-2])
                 retstack.append(datstack[-1])
-                print("yo")
                 datstack.pop()
                 datstack.pop()
                 opToAdd = opstack.pop()
