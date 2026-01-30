@@ -1,2 +1,9 @@
-var x = 2
+var x = 2 + 3
 out x
+for (x > 0) {
+    out y
+    var x = x + 1 + gasdau
+}
+while (x > 1) {
+    
+}

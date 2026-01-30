@@ -138,8 +138,11 @@ class LineLexer:
                 case "inp":
                     self._mode = "input"
                 case _:
-                    self._mode = "control"         
-            
+                    self._mode = "control" 
+        else:
+            self._mode = "empty"
+   
+    """
     def variablesInExpression(self, expression: str):
         variablesInExpr = False
         for x in expression:
@@ -149,16 +152,20 @@ class LineLexer:
         return variablesInExpr
     
     def tokeniseExpression(self, expression: str):
-        
+        return self.tokeniseArithmeticExpression(expression)
+    
         if self.variablesInExpression(expression):
+            print("varin")
             return self.tokeniseVariablesInExpression(expression)
         else:
             
             return self.tokeniseArithmeticExpression(expression)
 
     def tokeniseVariablesInExpression(self, expression: str):
+        # this is not finished...
         pass
-        
+    
+    """
     def tokenize(self):
         if len(self._line) == 0:
             pass
@@ -180,6 +187,8 @@ class LineLexer:
                     self.tokenizeInput()
                 case "control":
                     self.tokenizeControl()
+                case "empty":
+                    pass
         
         return self.getFinalTokens()
                 
@@ -187,8 +196,9 @@ class LineLexer:
         self._finalTokens.append(("var", self._tempTokens[1]))
         self._finalTokens.append(("=", None))
         expression = " ".join(self._tempTokens[3:])
-        tokenizedExpr = self.tokeniseExpression(expression)
-        self._finalTokens.extend(tokenizedExpr)
+        tokenizedExpr = self.tokeniseArithmeticExpression(expression)
+        if tokenizedExpr:
+            self._finalTokens.extend(tokenizedExpr)
        
     def tokenizeOutput(self):
         expression = " ".join(self._tempTokens[1:])
@@ -240,10 +250,15 @@ class Lexer(LineLexer):
             allTokens.extend(tokens)
         return allTokens
     
-script_dir = os.path.dirname(__file__)
-
-file_path = os.path.join(script_dir, "cascade.txt")
     
+    
+    
+script_dir = os.path.dirname(__file__)
+file_path = os.path.join(script_dir, "cascade.txt") 
 myLexer = Lexer()
 tokenStream = myLexer.lexFile(file_path)
-print(tokenStream)
+for t in tokenStream:
+    if t[1] == None:
+        print(t[0])
+    else:
+        print(t[0], t[1])
