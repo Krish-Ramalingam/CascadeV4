@@ -7,8 +7,8 @@ postExpr = [("int", 3), ("int", 2), ("int", 5), ("+", None), ("*", None)]
 
 def performOperation(first, second, op):
     #assumption that first and second are numbers
-    f = int(first[1])
-    s = int(second[1])
+    f = float(first[1])
+    s = float(second[1])
     match op[0]:
         case "+":
             return f+s

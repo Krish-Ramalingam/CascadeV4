@@ -67,7 +67,7 @@ class LineLexer:
                     else:
                         tokens.append(("int", int(current_number)))
                     current_number = ''
-                if char in '+-*/()':
+                if char in '+-*/()^':
                     tokens.append((char, None))
                 else:
                     if char.isalpha():
