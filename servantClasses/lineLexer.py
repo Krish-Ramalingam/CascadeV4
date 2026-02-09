@@ -141,7 +141,7 @@ class LineLexer:
                     self._mode = "control" 
         else:
             self._mode = "empty"
-   
+            
     """
     def variablesInExpression(self, expression: str):
         variablesInExpr = False
@@ -166,6 +166,7 @@ class LineLexer:
         pass
     
     """
+    
     def tokenize(self):
         if len(self._line) == 0:
             pass

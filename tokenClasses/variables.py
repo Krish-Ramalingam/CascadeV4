@@ -31,10 +31,6 @@ class Variable:
     def setScope(self, scope):
         self._scope = scope
         
-    
-    
-    
-
 class Array(Variable):
     def __init__(self, name: str, value: list, scope, length: int):
         super().__init__(name, value, scope, type="ARRAY")
