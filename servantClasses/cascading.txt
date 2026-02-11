@@ -1,1 +1,17 @@
-var x = 2 / 3 * 8 ^ 7
+var x = 5
+var y = 16
+
+if x > y + 1 {
+    out x + y          // Output sum
+}
+
+out 4
+out tree
+if tree > 4 {
+    out x
+    out y
+}
+
+var x = 5
+var y = x + 1            // ouptuts y
+out y

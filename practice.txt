@@ -1,3 +1,6 @@
+var x = 5
+var y = 16
+
 if x > y + 1 {
     out x + y          // Output sum
 }
@@ -7,12 +10,9 @@ out tree
 if tree > 4 {
     out x
     out y
-    for i in 1..10 {
-                        // ignore
-    }
 }
 
-x = 5
-y = 2x + 1
+var x = 5
+var y = x + 1            // ouptuts y
 out y
 

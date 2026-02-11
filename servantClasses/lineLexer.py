@@ -78,7 +78,10 @@ class LineLexer:
                             current_variable = ''
                             
         if current_number:
-            tokens.append(("float", float(current_number)))
+            if '.' in current_number:
+                tokens.append(("float", float(current_number)))
+            else:
+                tokens.append(("int", int(current_number)))
         if current_variable:
             tokens.append(("var", current_variable))
 
@@ -194,23 +197,25 @@ class LineLexer:
         return self.getFinalTokens()
                 
     def tokenizeAssignment(self):
+        # expression in the form var varName = expression
         self._finalTokens.append(("var", self._tempTokens[1]))
         self._finalTokens.append(("=", None))
         expression = " ".join(self._tempTokens[3:])
         tokenizedExpr = self.tokeniseArithmeticExpression(expression)
         if tokenizedExpr:
             self._finalTokens.extend(tokenizedExpr)
-       
+            
     def tokenizeOutput(self):
+        # expression in the form out expression
         expression = " ".join(self._tempTokens[1:])
         self._finalTokens.append(("out", expression))
         
     def tokenizeInput(self):
+        # expression in the form inp varName
         self._finalTokens.append(("inp", self._tempTokens[1]))
 
     def tokenizeControl(self):
         # expression in the form key (condition) { ... }
-        
         controlKey = self._tempTokens[0]
         conditionEnd = self._tempTokens.index('{')
         condition = " ".join(self._tempTokens[1:conditionEnd])
