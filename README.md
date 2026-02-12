@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?size=50&center=true&vCenter=true&width=600&lines=CASCADE;A+programming+language;Coming+soon!" />
+  <img src="https://readme-typing-svg.herokuapp.com?size=50&center=true&vCenter=true&width=600&lines=CASCADE;Programming+language.;Coming+soon!" />
 </p>
 
 <hr>
