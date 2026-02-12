@@ -35,8 +35,6 @@
   </p>
 </div>
 
-<br>
-
 <div>
   <h2>Data Reference</h2>
   <p>
@@ -44,54 +42,52 @@
   </p>
 </div>
 
-<br>
-
 <div>
   <h2>HyperVarModules</h2>
   <p>
-    Contains bulk data in dictionaries - Primarily used for classifiers
+    Contains modules related to automatically updating features
   </p>
 </div>
 
 <div>
   <h2>masterInterpreter</h2>
   <p>
-    Contains bulk data in dictionaries - Primarily used for classifiers
+    Contains the main program
   </p>
 </div>
 
 <div>
   <h2>misc</h2>
   <p>
-    Contains bulk data in dictionaries - Primarily used for classifiers
+    Contains testing data stuff
   </p>
 </div>
 
 <div>
   <h2>parserModules</h2>
   <p>
-    Contains bulk data in dictionaries - Primarily used for classifiers
+    Contains Modules which relate to the parsing of the tokens
   </p>
 </div>
 
 <div>
   <h2>servantClasses</h2>
   <p>
-    Contains bulk data in dictionaries - Primarily used for classifiers
+    Contains relevant classes
   </p>
 </div>
 
 <div>
   <h2>tokenClasses</h2>
   <p>
-    Contains bulk data in dictionaries - Primarily used for classifiers
+    Contains classes in relation to tokens
   </p>
 </div>
 
 <div>
   <h2>Validation</h2>
   <p>
-    Contains bulk data in dictionaries - Primarily used for classifiers
+    Contains functions which purely validate data
   </p>
 </div>
 
