@@ -26,7 +26,23 @@
   </p>
 </div>
 
+<br>
 
+<div>
+  <h1>Algorithms</h1>
+  <p>
+    Contains the key algorithms for coding tokeniser and parser - Once finished may be ported over to the classes they're in, so delete when finished
+  </p>
+</div>
+
+<br>
+
+<div>
+  <h1>Algorithms</h1>
+  <p>
+    Contains the key algorithms for coding tokeniser and parser - Once finished may be ported over to the classes they're in, so delete when finished
+  </p>
+</div>
 
 
 
