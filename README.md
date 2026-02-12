@@ -1,4 +1,6 @@
-<h1>CASCADE</h1>
+<div align="center">
+  <h1>CASCADE</h1>
+</div>
 
 <hr>
 
