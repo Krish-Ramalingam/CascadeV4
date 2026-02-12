@@ -44,8 +44,10 @@
   </p>
 </div>
 
+<br>
+
 <div>
-  <h1>Data Reference</h1>
+  <h1>HyperVarModules</h1>
   <p>
     Contains bulk data in dictionaries - Primarily used for classifiers
   </p>
