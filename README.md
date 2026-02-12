@@ -2,7 +2,7 @@
   <h1>CASCADE</h1>
 </div>
 
-<hr>
+<br>
 
 <div>
   <h1>About Cascade</h1>
