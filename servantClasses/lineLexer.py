@@ -204,15 +204,22 @@ class LineLexer:
         tokenizedExpr = self.tokeniseArithmeticExpression(expression)
         if tokenizedExpr:
             self._finalTokens.extend(tokenizedExpr)
+            self._finalTokens.append((";", None))
             
     def tokenizeOutput(self):
         # expression in the form out expression
         expression = " ".join(self._tempTokens[1:])
-        self._finalTokens.append(("out", expression))
+        tokenisedExpr = self.tokeniseArithmeticExpression(expression)
+        self._finalTokens.append(("out", None))
+        self._finalTokens.extend(tokenisedExpr)
+        self._finalTokens.append((";", None))  # Add newline token after output expression
         
     def tokenizeInput(self):
         # expression in the form inp varName
-        self._finalTokens.append(("inp", self._tempTokens[1]))
+        tokenisedExpr = self.tokeniseArithmeticExpression(self._tempTokens[1])
+        self._finalTokens.append(("inp", None))
+        self._finalTokens.extend(tokenisedExpr)
+        self._finalTokens.append((";", None))
 
     def tokenizeControl(self):
         # expression in the form key (condition) { ... }
@@ -223,6 +230,7 @@ class LineLexer:
         tokenizedCondition = self.tokeniseLogicalExpression(condition)
         self._finalTokens.extend(tokenizedCondition)
         # The rest can be handled as needed (e.g., body of control structure)
+        self._finalTokens.append((";", None))
         self._finalTokens.append(("{", None))
 
 class Lexer(LineLexer):

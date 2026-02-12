@@ -3,8 +3,8 @@ from algorithms import dijkstra as d
 from algorithms import evalpostfix as e
 
 tstream = (l.genTokStream())
-
-print(tstream)
+for x in tstream:
+    print(x)
 
 
 #var = tstream[0][1]
