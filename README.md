@@ -16,7 +16,7 @@
   </p>
 </div>
 
-<hr>
+<br>
 
 <div>
   <h1>Dev Log and Deadlines</h1>
