@@ -71,10 +71,18 @@ def dijkstraShuntingYard(tokens):
         t = getType(tok)
         if t == "dat":
             datstack.append(tok)
+            print("datstack: ", datstack)
+            print("retstack: ", retstack)
         if t == "op":
             attemptToRetStack(tok, False)
             opstack.append(tok)
+            print("opstack: ", opstack)
+            print("retstack: ", retstack)
             
     fileRest()
 
     return retstack
+
+tokens = [('int', 4), ('*', None), ('int', 2), ('-', None), ('int', 3), ('/', None), ('int', 1), ('*', None), ('int', 3), ('-', None), ('int', 5)]
+
+dijkstraShuntingYard(tokens)
