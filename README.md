@@ -29,7 +29,7 @@
 <br>
 
 <div>
-  <h1>Algorithms</h1>
+  <h2>Algorithms</h2>
   <p>
     Contains the key algorithms for coding tokeniser and parser - Once finished may be ported over to the classes they're in, so delete when finished
   </p>
@@ -38,7 +38,7 @@
 <br>
 
 <div>
-  <h1>Data Reference</h1>
+  <h2>Data Reference</h2>
   <p>
     Contains bulk data in dictionaries - Primarily used for classifiers
   </p>
@@ -47,13 +47,53 @@
 <br>
 
 <div>
-  <h1>HyperVarModules</h1>
+  <h2>HyperVarModules</h2>
   <p>
     Contains bulk data in dictionaries - Primarily used for classifiers
   </p>
 </div>
 
+<div>
+  <h2>masterInterpreter</h2>
+  <p>
+    Contains bulk data in dictionaries - Primarily used for classifiers
+  </p>
+</div>
 
+<div>
+  <h2>misc</h2>
+  <p>
+    Contains bulk data in dictionaries - Primarily used for classifiers
+  </p>
+</div>
+
+<div>
+  <h2>parserModules</h2>
+  <p>
+    Contains bulk data in dictionaries - Primarily used for classifiers
+  </p>
+</div>
+
+<div>
+  <h2>servantClasses</h2>
+  <p>
+    Contains bulk data in dictionaries - Primarily used for classifiers
+  </p>
+</div>
+
+<div>
+  <h2>tokenClasses</h2>
+  <p>
+    Contains bulk data in dictionaries - Primarily used for classifiers
+  </p>
+</div>
+
+<div>
+  <h2>Validation</h2>
+  <p>
+    Contains bulk data in dictionaries - Primarily used for classifiers
+  </p>
+</div>
 
 
 
