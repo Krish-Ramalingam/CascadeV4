@@ -26,7 +26,7 @@
   </p>
 </div>
 
-<br>
+<hr>
 
 <div>
   <h2>Algorithms</h2>
