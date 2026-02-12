@@ -38,11 +38,19 @@
 <br>
 
 <div>
-  <h1>Algorithms</h1>
+  <h1>Data Reference</h1>
   <p>
-    Contains the key algorithms for coding tokeniser and parser - Once finished may be ported over to the classes they're in, so delete when finished
+    Contains bulk data in dictionaries - Primarily used for classifiers
   </p>
 </div>
+
+<div>
+  <h1>Data Reference</h1>
+  <p>
+    Contains bulk data in dictionaries - Primarily used for classifiers
+  </p>
+</div>
+
 
 
 
