@@ -17,16 +17,6 @@
 </div>
 
 <br>
-
-<div>
-  <h1>Dev Log and Deadlines</h1>
-  <p>
-    End Date Deadline: End of Februrary
-    Planning on adding environments to handle global and local scope, as well as for functions. Maybe add OOP or maths libraries as a stretch.
-  </p>
-</div>
-
-<br>
 <br>
 
 <div>
