@@ -1,11 +1,19 @@
 from servantClasses import lineLexer as l
 from algorithms import dijkstra as d
 from algorithms import evalpostfix as e
+from finalcode import parser as p
+
+
+
+
 
 tstream = (l.genTokStream())
-for x in tstream:
-    print(x)
+parser = p.ParserNodes(tstream)
+ast_nodes = parser.parse_program()
 
+for node in ast_nodes:
+    print(node)
+    
 
 #var = tstream[0][1]
 #tstream = tstream[2:]

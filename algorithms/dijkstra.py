@@ -1,12 +1,10 @@
+"""
+
+
+
 def dijkstraShuntingYard(tokens):
 
-    # Fairly complicated algorithm...
-    """
-    1) Iterate through the tokens, addding all data found to the datstack,
-    2) For op tokens, if in ascending precedence, fine, like -+^.
-    3) if not in that sequence, ie ^-, need to go back and pop stuff and append on the end
-    4) Once done, reverse the opstack, and then append to the end
-    """
+
     # hopefully extend to unary ops and can do a full program code.
 
     precedence = {
@@ -86,3 +84,64 @@ def dijkstraShuntingYard(tokens):
 tokens = [('int', 4), ('*', None), ('int', 2), ('-', None), ('int', 3), ('/', None), ('int', 1), ('*', None), ('int', 3), ('-', None), ('int', 5)]
 
 dijkstraShuntingYard(tokens)
+
+
+"""
+def dijkstraShuntingYard(tokens):
+
+    precedence = {
+        "+": 1,
+        "-": 1,
+        "*": 2,
+        "/": 2,
+        "^": 3
+    }
+
+    output = []
+    opstack = []
+
+    def is_data(tok):
+        return tok[0] in ["int", "float", "var"]
+
+    def is_op(tok):
+        return tok[0] in precedence or tok[0] in ["(", ")"]
+
+    def peek(stack):
+        return stack[-1] if stack else None
+
+    for tok in tokens:
+
+        # 1. Numbers go straight to output
+        if is_data(tok):
+            output.append(tok)
+
+        # 2. Left parenthesis goes to stack
+        elif tok[0] == "(":
+            opstack.append(tok)
+
+        # 3. Right parenthesis pops until "("
+        elif tok[0] == ")":
+            while opstack and peek(opstack)[0] != "(":
+                output.append(opstack.pop())
+            opstack.pop()  # remove "("
+
+        # 4. Operators
+        elif tok[0] in precedence:
+            while (
+                opstack
+                and peek(opstack)[0] in precedence
+                and precedence[peek(opstack)[0]] >= precedence[tok[0]]
+            ):
+                output.append(opstack.pop())
+
+            opstack.append(tok)
+
+    # 5. Empty remaining operators
+    while opstack:
+        output.append(opstack.pop())
+
+    return output
+
+tokens = [('int', 4), ('*', None), ('int', 2), ('-', None), ('int', 3), ('/', None), ('int', 1), ('*', None), ('int', 3), ('-', None), ('int', 5)]
+
+print(dijkstraShuntingYard(tokens))
