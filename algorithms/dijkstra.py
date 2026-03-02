@@ -141,7 +141,3 @@ def dijkstraShuntingYard(tokens):
         output.append(opstack.pop())
 
     return output
-
-tokens = [('int', 4), ('*', None), ('int', 2), ('-', None), ('int', 3), ('/', None), ('int', 1), ('*', None), ('int', 3), ('-', None), ('int', 5)]
-
-print(dijkstraShuntingYard(tokens))

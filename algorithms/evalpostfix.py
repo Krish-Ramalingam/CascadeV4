@@ -2,7 +2,6 @@
 evalpostfix.py used to strict evaluate any postfix expressions iteratively rather than recursively
 aim to use if space becomes an issue
 """
-
 postExpr = [("int", 3), ("int", 2), ("int", 5), ("+", None), ("*", None)]
 
 def performOperation(first, second, op):

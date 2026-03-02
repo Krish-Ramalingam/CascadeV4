@@ -42,10 +42,8 @@ allowedTokens = operators
 
 def checkTokenStream(tokenStream):
     for token in tokenStream:
-        if token[0] not in allowedTokens:
-            raise Exception(f"Invalid token type: {token[0]}")
         if not validateToken(token):
             raise Exception(f"Invalid token: {token}")
 
             
-            
+    
