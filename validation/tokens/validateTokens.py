@@ -24,8 +24,7 @@ def validateFuncName(funcName):
             return False
     return True
     
-def validateToken(token):
-    
+def validateToken(token):  
     if token[1] == None:
         if token[0] in operators:
             return True
@@ -38,5 +37,15 @@ def validateToken(token):
             return validateInt(token[1]) 
         if token[0] == "float": 
             return validateFloat(token[1]) 
+        
+allowedTokens = operators
+
+def checkTokenStream(tokenStream):
+    for token in tokenStream:
+        if token[0] not in allowedTokens:
+            raise Exception(f"Invalid token type: {token[0]}")
+        if not validateToken(token):
+            raise Exception(f"Invalid token: {token}")
+
             
             
