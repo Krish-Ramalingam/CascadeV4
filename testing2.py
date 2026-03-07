@@ -1,9 +1,9 @@
 from servantClasses import lineLexer as l
 from algorithms import dijkstra as d
-from algorithms import postfixToTree as p
-
+from misc import postfixToTree as p
+"""
 newLexer = l.Lexer()
-
+"""
 
 
 

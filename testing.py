@@ -4,9 +4,12 @@ from algorithms import evalpostfix as e
 from finalcode import parser as p
 
 tstream = (l.genTokStream("cascading.txt"))
+
 parser = p.ParserNodes(tstream)
 ast_nodes = parser.parse_program()
 
+for tok in tstream:
+        print(tok[0], tok[1])
 for node in ast_nodes:
     print(node)
     

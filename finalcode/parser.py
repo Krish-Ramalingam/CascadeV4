@@ -47,13 +47,22 @@ class WhileNode(Node):
     
 
 
-def dijkstraShuntingYard(tokens):   
-    precedence = {"+":1,"-":1,"*":2,"/":2,"^":3}
-    output = []
+def dijkstraShuntingYard(tokens):
+    precedence = {
+        "||": 1,
+        "&&": 2,
+        ">": 3, "<": 3,
+        "+": 3, "-": 4,
+        "*": 4, "/": 5,
+        "^": 6
+    }
+    
+    right_assoc = {"^"}
+    output  = []
     opstack = []
 
     def is_data(tok):
-        return tok[0] in ["int","float","var"]
+        return tok[0] in ["int", "float", "var", "bool"]
 
     def peek(stack):
         return stack[-1] if stack else None
@@ -61,14 +70,21 @@ def dijkstraShuntingYard(tokens):
     for tok in tokens:
         if is_data(tok):
             output.append(tok)
+
         elif tok[0] == "(":
             opstack.append(tok)
+
         elif tok[0] == ")":
             while opstack and peek(opstack)[0] != "(":
                 output.append(opstack.pop())
             opstack.pop()
+
         elif tok[0] in precedence:
-            while opstack and peek(opstack)[0] in precedence and precedence[peek(opstack)[0]] >= precedence[tok[0]]:
+            while (opstack and
+                   peek(opstack)[0] in precedence and
+                   (precedence[peek(opstack)[0]] > precedence[tok[0]] or
+                   (precedence[peek(opstack)[0]] == precedence[tok[0]]
+                    and tok[0] not in right_assoc))):
                 output.append(opstack.pop())
             opstack.append(tok)
 
@@ -76,8 +92,6 @@ def dijkstraShuntingYard(tokens):
         output.append(opstack.pop())
 
     return output
-
-
 
 class ParserNodes:
     def __init__(self, tokens):
@@ -245,3 +259,38 @@ class Interpreter:
         
 #interpreter = Interpreter()
 #interpreter.exec_nodes(ast_nodes)
+
+"""
+
+class Interpreter:
+    def __init__(self):
+        self.variables = {}
+
+    def run(self, nodes):
+        for node in nodes:
+            self.execute(node)
+
+    def execute(self, node):
+        if isinstance(node, ExprStmtNode):
+            evaluate_rpn(node.expr.rpn, self.variables)
+
+        elif isinstance(node, VarDeclNode):
+            value = evaluate_rpn(node.expr.rpn, self.variables) if node.expr else None
+            self.variables[node.name] = value
+
+        elif isinstance(node, OutNode):
+            value = evaluate_rpn(node.expr.rpn, self.variables)
+            print(value)
+
+        elif isinstance(node, IfNode):
+            cond = evaluate_rpn(node.cond.rpn, self.variables)
+            if cond:
+                for stmt in node.block:
+                    self.execute(stmt)
+
+        elif isinstance(node, WhileNode):
+            while evaluate_rpn(node.cond.rpn, self.variables):
+                for stmt in node.block:
+                    self.execute(stmt)
+                    
+"""

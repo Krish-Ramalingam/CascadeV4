@@ -26,7 +26,7 @@ class dependencyGraph:
             edges[node.getName()] = [edge.getName() for edge in node.getEdges()]
         return edges
     
-    def returnAllPointingTo(self, nodeName):
+    def returnAllPointsToX(self, nodeName):
         pointingNodes = []
         for node in self._nodes:
             for edge in node.getEdges():
@@ -34,7 +34,7 @@ class dependencyGraph:
                     pointingNodes.append(node.getName())
         return pointingNodes
     
-    def returnAllPointedFrom(self, nodeName):
+    def returnAllXPointsTo(self, nodeName):
         node = self.findNode(nodeName)
         if node:
             return [edge.getName() for edge in node.getEdges()]
@@ -94,8 +94,8 @@ myDepGraph.addNode(Node("B"))
 
 myDepGraph.addEdgeFromXToY("A", "B")
 print(myDepGraph.getEdges())
-print(myDepGraph.returnAllPointingTo("B"))
-print(myDepGraph.returnAllPointedFrom("A"))
+print(myDepGraph.returnAllPointsToX("B"))
+print(myDepGraph.returnAllXPointsTo("A"))
 print(myDepGraph.descendants("A"))
 print(myDepGraph.ancestors("B"))
 myDepGraph.addNode(Node("C"))

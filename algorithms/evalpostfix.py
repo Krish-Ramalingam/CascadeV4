@@ -47,7 +47,7 @@ def evalPostExpr(tokenisedExpr):
 
 
 """
-import dijikstra as k
+import dijkstra as k
 
 print(evalPostExpr((k.dijkstraShuntingYard(
     [
@@ -62,5 +62,4 @@ print(evalPostExpr((k.dijkstraShuntingYard(
         ("int", 3)
     ]   
 ))))
-
 """
