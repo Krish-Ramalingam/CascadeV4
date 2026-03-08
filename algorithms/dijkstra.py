@@ -111,21 +111,21 @@ def dijkstraShuntingYard(tokens):
 
     for tok in tokens:
 
-        # 1. Numbers go straight to output
+        # Numbers go straight to output
         if is_data(tok):
             output.append(tok)
 
-        # 2. Left parenthesis goes to stack
+        # Left parenthesis goes to stack
         elif tok[0] == "(":
             opstack.append(tok)
 
-        # 3. Right parenthesis pops until "("
+        # Right parenthesis pops until "("
         elif tok[0] == ")":
             while opstack and peek(opstack)[0] != "(":
                 output.append(opstack.pop())
-            opstack.pop()  # remove "("
+            opstack.pop() 
 
-        # 4. Operators
+        # Operators
         elif tok[0] in precedence:
             while (
                 opstack
@@ -136,7 +136,7 @@ def dijkstraShuntingYard(tokens):
 
             opstack.append(tok)
 
-    # 5. Empty remaining operators
+    # Empty remaining operators
     while opstack:
         output.append(opstack.pop())
 

@@ -1,6 +1,7 @@
 import os
+from validation import validateTokens as vt
 
-
+"""
 line1 = "out x // This is an output statement"
 line2 = "var x = 1 + 2 * (3 - 4)"
 line3 = "var y = 3.3"
@@ -8,7 +9,7 @@ line4 = "inp y"
 line5 = "if x > (y + 1) {"
 line6 = "out (x + y) // Output sum"
 line7 = "}"
-
+"""
 
 class LineLexer:
     def __init__(self):
@@ -140,6 +141,8 @@ class LineLexer:
                     self._mode = "output"
                 case "inp":
                     self._mode = "input"
+                case "hvar":
+                    self._mode = "hassign"
                 case _:
                     self._mode = "control" 
         else:
@@ -191,13 +194,31 @@ class LineLexer:
                     self.tokenizeInput()
                 case "control":
                     self.tokenizeControl()
+                case "hassign":
+                    self.tokenizeHyperAssignment()
                 case "empty":
                     pass
         
         return self.getFinalTokens()
-                
+    
+    def tokenizeHyperAssignment(self):
+        # expression in the form hvar varName ( x y ... z ) = expression
+        self._finalTokens.append(("hvar_kw", None))
+        self._finalTokens.append(("var", self._tempTokens[1]))
+        for i in range(2, self._tempTokens.index('=')):
+            if self._tempTokens[i] != '(' and self._tempTokens[i] != ')':
+                self._finalTokens.append(("var", self._tempTokens[i]))
+        self._finalTokens.append(("=", None))
+        expression = " ".join(self._tempTokens[self._tempTokens.index('=')+1:])
+        tokenizedExpr = self.tokeniseArithmeticExpression(expression)
+        if tokenizedExpr:
+            self._finalTokens.extend(tokenizedExpr)
+            self._finalTokens.append((";", None))
+    
+             
     def tokenizeAssignment(self):
         # expression in the form var varName = expression
+        self._finalTokens.append(("var_kw", None))
         self._finalTokens.append(("var", self._tempTokens[1]))
         self._finalTokens.append(("=", None))
         expression = " ".join(self._tempTokens[3:])

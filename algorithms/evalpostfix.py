@@ -36,6 +36,10 @@ def evalPostExpr(tokenisedExpr):
             l = len(ramQueue)
             firstDat = ramQueue[-1]
             secondDat = ramQueue[-2]
+            if firstDat[0] == "var":
+                firstDat = (fetchType(firstDat[1]), fetchVarValue(firstDat[1]))
+            if secondDat[0] == "var":
+                secondDat = (fetchType(secondDat[1]), fetchVarValue(secondDat[1]))
             result = performOperation(firstDat, secondDat, token)
             ramQueue.pop()
             ramQueue.pop()

@@ -6,8 +6,9 @@ def validateVar(var):
             return False
     return True
 
-def validateInt(int):
-    if int.isnumeric(): 
+
+def validateInt(integer):
+    if type(integer) == int:
         return True
     else: 
         return False
@@ -23,7 +24,7 @@ def validateFuncName(funcName):
         if not (char.isalpha()): 
             return False
     return True
-    
+
 def validateToken(token):  
     if token[1] == None:
         if token[0] in operators:
@@ -34,10 +35,12 @@ def validateToken(token):
         if token[0] == "var":
             return validateVar(token[1])
         if token[0] == "int": 
+            print(token[1])
             return validateInt(token[1]) 
         if token[0] == "float": 
             return validateFloat(token[1]) 
         
+
 allowedTokens = operators
 
 def checkTokenStream(tokenStream):
