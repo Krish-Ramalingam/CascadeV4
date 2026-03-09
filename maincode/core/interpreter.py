@@ -1,5 +1,55 @@
 
+class Node:
+    pass
 
+# Statement Nodes
+    
+class HyperVarDeclNode(Node):
+    def __init__(self, name, dependencies, expr):
+        self.name = name
+        self.dependencies = dependencies
+        self.expr = expr
+    def __repr__(self):
+        return f"HyperVarDecl({self.name}, {self.dependencies}, {self.expr})" 
+class OutNode(Node):
+    def __init__(self, expr):
+        self.expr = expr
+    def __repr__(self):
+        return f"Out({self.expr})"
+
+class VarDeclNode(Node):
+    def __init__(self, name, expr):
+        self.name = name
+        self.expr = expr
+    def __repr__(self):
+        return f"VarDecl({self.name}, {self.expr})"
+
+class IfNode(Node):
+    def __init__(self, condition, block):
+        self.condition = condition
+        self.block = block
+    def __repr__(self):
+        return f"If({self.condition}, {self.block})"
+
+class ExprStmtNode(Node):
+    def __init__(self, expr):
+        self.expr = expr
+    def __repr__(self):
+        return f"ExprStmt({self.expr})"
+
+# Expression Node (postfix)
+class ExprNode(Node):
+    def __init__(self, tokens):
+        self.tokens = tokens
+    def __repr__(self):
+        return f"Expr({self.tokens})"
+    
+class WhileNode(Node):
+    def __init__(self, condition, block):
+        self.condition = condition
+        self.block = block
+    def __repr__(self):
+        return f"While({self.condition}, {self.block})"
 
 class HyperDependencyGraph:
     def __init__(self):
@@ -150,23 +200,25 @@ class Interpreter:
                             self.update_ancestors(self.hyperGraph.findNode(dep))
     # Execute a single node
     def exec_node(self, node):
-        if isinstance(node, OutNode):
+        if str(type(node)).split(".")[-1].replace("'>", "") == "HyperVarDeclNode":
             val = self.eval_expr(node.expr)
-            print(val)
-        elif isinstance(node, VarDeclNode):
+        elif str(type(node)).split(".")[-1].replace("'>", "") == "VarDeclNode":
             if node.expr:
                 val = self.eval_expr(node.expr)
                 self.update_ancestors(node)
             else:
                 val = None
             self.env[node.name] = val
-        elif isinstance(node, ExprStmtNode):
+        elif str(type(node)).split(".")[-1].replace("'>", "") == "ExprStmtNode":
             self.eval_expr(node.expr)
-        elif isinstance(node, IfNode):
+        elif str(type(node)).split(".")[-1].replace("'>", "") == "IfNode":
             cond_val = self.eval_expr(node.condition)
             if cond_val:
                 self.exec_nodes(node.block)
-        elif isinstance(node, HyperVarDeclNode):
+        elif str(type(node)).split(".")[-1].replace("'>", "") == "OutNode":
+            val = self.eval_expr(node.expr)
+            print(val)
+        elif str(type(node)).split(".")[-1].replace("'>", "") == "HyperVarDeclNode":
             if node.expr:
                 ex = node.expr
             else:

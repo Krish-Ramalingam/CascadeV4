@@ -1,5 +1,5 @@
 import os
-from validation import validateTokens as vt
+#from validation import validateTokens as vt
 
 class LineLexer:
     def __init__(self):

@@ -22,14 +22,21 @@ def select_file():
     
 x = select_file()
 
-with open("inputfiles/" + x, "r") as file:
-    file_contents = file.read()
 
+lexer = lxr.Lexer()
+token_stream = lexer.lexFile("inputfiles/" + x)
+parser = psr.ParserNodes(token_stream)
+ast_nodes = parser.parse_program()
+interpreter = itp.Interpreter()
+interpreter.exec_nodes(ast_nodes)
+
+
+"""
 lexer = lxr.Lexer()
 token_stream = lexer.lexFile(file_contents)
 parser = psr.ParserNodes(token_stream)
 ast_nodes = parser.parse_program()
 interpreter = itp.Interpreter()
 interpreter.exec_nodes(ast_nodes)
-
+"""
     

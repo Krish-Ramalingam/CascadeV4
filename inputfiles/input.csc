@@ -1,2 +1,2 @@
-y = 1
+var y = 1
 out y
