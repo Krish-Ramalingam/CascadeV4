@@ -105,6 +105,7 @@ def dijkstraShuntingYard(tokens):
 
     return output
 
+
 class ParserNodes:
     def __init__(self, tokens):
         self.tokens = tokens
@@ -197,7 +198,7 @@ class ParserNodes:
             expr_tokens.append(self.consume())
         return ExprNode(dijkstraShuntingYard(expr_tokens))
     
-
+"""
 class HyperDependencyGraph:
     def __init__(self):
         self._nodes = []
@@ -384,7 +385,7 @@ class Interpreter:
        
  
 
-"""
+
 class Interpreter:
     def __init__(self):
         self.variables = {}
@@ -430,9 +431,5 @@ tokens_example = [
     ('out', None), ('var', 'y'), (';', None)
 ]
 
-parser = ParserNodes(tokens_example)
-ast_nodes = parser.parse_program()
 
-for node in ast_nodes:
-    #print(node)
 """

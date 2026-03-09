@@ -9,13 +9,10 @@
 // out z
 // }
 
-hvar x (y) = 2*y
-hvar z (x) = 2*x
-
-var y = 1
-out z
-
-if z == 4 {
-    out z
+var x = 10
+while x > 1 {
+    out x 
+    var x = x - 1
 }
+
 // eq later 

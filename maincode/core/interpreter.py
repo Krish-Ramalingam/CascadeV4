@@ -220,7 +220,7 @@ class Interpreter:
                             self.update_ancestors(self.hyperGraph.findNode(dep))
     # Execute a single node
     def exec_node(self, node):
-        print(str(type(node)).split(".")[-1].replace("'>", ""))
+        # print(str(type(node)).split(".")[-1].replace("'>", ""))
         if str(type(node)).split(".")[-1].replace("'>", "") == "VarDeclNode":
             if node.expr:
                 val = self.eval_expr(node.expr)
@@ -238,17 +238,19 @@ class Interpreter:
             val = self.eval_expr(node.expr)
             print(val)
         elif str(type(node)).split(".")[-1].replace("'>", "") == "HyperVarDeclNode":
-            print("hi")
             if node.expr:
                 ex = node.expr
             else:
                 ex = None
             self.hyperenv[node.name] = ex
-            print(self.hyperenv)
             self.hyperdeps[node.name] = node.dependencies
             self.hyperGraph.addNode(HyperNode(node.name, ex))
             for dep in node.dependencies:
                 self.hyperGraph.addEdgeFromXToY(node.name, dep)
+        elif str(type(node)).split(".")[-1].replace("'>", "") == "WhileNode":
+            while self.eval_expr(node.condition):
+                self.exec_nodes(node.block)
+                
         
             
         else:
