@@ -4,7 +4,6 @@ from algorithms import evalpostfix as e
 from core import parser as p
 
 
-
 tstream = (l.genTokStream("cascading.txt"))
 
 parser = p.ParserNodes(tstream)

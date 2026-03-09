@@ -7,7 +7,7 @@
 <div>
   <h1>About Cascade</h1>
   <p>
-    CascadeV4 is a high-level dynamic programming language, revamped for the 4th time to make more extensive use of OOP. To run any file, execute main.py.
+    CascadeV4 is a high-level dynamic programming language, revamped for the 4th time to make more extensive use of OOP. To run any file, just write any file ending in .csc in Cascade syntax and then run the code in main.py
     <ul>
       <li>Lexer: Program File -> Token Stream</li>
       <li>Parser: Token Stream -> AST</li>
