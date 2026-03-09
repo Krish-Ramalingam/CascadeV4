@@ -1,2 +1,0 @@
-def validateAST(ast):
-    pass

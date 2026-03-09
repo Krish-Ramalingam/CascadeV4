@@ -1,7 +1,7 @@
-from servantClasses import lineLexer as l
+from core import lexer as l
 from algorithms import dijkstra as d
 from algorithms import evalpostfix as e
-from finalcode import parser as p
+from core import parser as p
 
 
 
@@ -17,6 +17,7 @@ for node in ast_nodes:
 """
 interpreter = p.Interpreter()
 interpreter.exec_nodes(ast_nodes)
+print(interpreter.hyperGraph.getNodes().__repr__())
 
 """
 #var = tstream[0][1]

@@ -1,3 +1,8 @@
+"""
+Defines the operators used in the language, categorized by their functionality.
+This module serves as a reference for all operators that can be used in expressions, control structures, variable declarations, and other language constructs.
+"""
+
 expressionOperators = ['+', '-', '*', '/', '%', '==', '!=', '>', '<', '>=', '<=',
                        '&&', '||', '!', '=', '+=', '-=', '*=', '/=', '%=', '&=',
                        '|=', '^=', '(', ')', '[', ']', '{', '}', '.', '->',

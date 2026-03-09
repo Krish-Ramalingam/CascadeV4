@@ -1,5 +1,0 @@
-
-hvar y ( x ) = x + 1
-hvar x ( y ) = y + 1
-var x = 1
-out y

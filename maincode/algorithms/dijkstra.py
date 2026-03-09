@@ -1,4 +1,64 @@
 """
+Converts in infix expression to postfix (RPN) using Dijkstra's Shunting Yard algorithm.
+Handles operator precedence and associativity correctly. Can be extended to support unary operators and functions.
+"""
+
+def dijkstraShuntingYard(tokens):
+
+    precedence = {
+        "+": 1,
+        "-": 1,
+        "*": 2,
+        "/": 2,
+        "^": 3
+    }
+
+    output = []
+    opstack = []
+
+    def is_data(tok):
+        return tok[0] in ["int", "float", "var"]
+
+    def is_op(tok):
+        return tok[0] in precedence or tok[0] in ["(", ")"]
+
+    def peek(stack):
+        return stack[-1] if stack else None
+
+    for tok in tokens:
+
+        # Numbers go straight to output
+        if is_data(tok):
+            output.append(tok)
+
+        # Left parenthesis goes to stack
+        elif tok[0] == "(":
+            opstack.append(tok)
+
+        # Right parenthesis pops until "("
+        elif tok[0] == ")":
+            while opstack and peek(opstack)[0] != "(":
+                output.append(opstack.pop())
+            opstack.pop() 
+
+        # Operators
+        elif tok[0] in precedence:
+            while (
+                opstack
+                and peek(opstack)[0] in precedence
+                and precedence[peek(opstack)[0]] >= precedence[tok[0]]
+            ):
+                output.append(opstack.pop())
+
+            opstack.append(tok)
+
+    # Empty remaining operators
+    while opstack:
+        output.append(opstack.pop())
+
+    return output
+
+"""
 
 
 
@@ -87,57 +147,3 @@ dijkstraShuntingYard(tokens)
 
 
 """
-def dijkstraShuntingYard(tokens):
-
-    precedence = {
-        "+": 1,
-        "-": 1,
-        "*": 2,
-        "/": 2,
-        "^": 3
-    }
-
-    output = []
-    opstack = []
-
-    def is_data(tok):
-        return tok[0] in ["int", "float", "var"]
-
-    def is_op(tok):
-        return tok[0] in precedence or tok[0] in ["(", ")"]
-
-    def peek(stack):
-        return stack[-1] if stack else None
-
-    for tok in tokens:
-
-        # Numbers go straight to output
-        if is_data(tok):
-            output.append(tok)
-
-        # Left parenthesis goes to stack
-        elif tok[0] == "(":
-            opstack.append(tok)
-
-        # Right parenthesis pops until "("
-        elif tok[0] == ")":
-            while opstack and peek(opstack)[0] != "(":
-                output.append(opstack.pop())
-            opstack.pop() 
-
-        # Operators
-        elif tok[0] in precedence:
-            while (
-                opstack
-                and peek(opstack)[0] in precedence
-                and precedence[peek(opstack)[0]] >= precedence[tok[0]]
-            ):
-                output.append(opstack.pop())
-
-            opstack.append(tok)
-
-    # Empty remaining operators
-    while opstack:
-        output.append(opstack.pop())
-
-    return output

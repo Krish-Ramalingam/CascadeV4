@@ -1,3 +1,67 @@
+class Scope:
+    def __init__(self, parent=None):
+        self.parent = parent
+        self.variables = {}
+
+    def set_variable(self, name, value):
+        self.variables[name] = value
+
+    def get_variable(self, name):
+        if name in self.variables:
+            return self.variables[name]
+        elif self.parent is not None:
+            return self.parent.get_variable(name)
+        else:
+            raise NameError(f"Variable '{name}' not found in scope.")
+        
+    def set_hypervariable(self, name, params, relationship):
+        self.variables[name] = {
+            "params": params,
+            "relationship": relationship
+        }
+        
+    def get_hypervariable(self, name):
+        if name in self.variables:
+            return self.variables[name]
+        elif self.parent is not None:
+            return self.parent.get_hypervariable(name)
+        else:
+            raise NameError(f"Hypervariable '{name}' not found in scope.")
+    
+    
+        
+class Memory:
+    def __init__(self):
+        self.global_scope = Scope()
+        self.current_scope = self.global_scope
+
+    def enter_scope(self):
+        new_scope = Scope(parent=self.current_scope)
+        self.current_scope = new_scope
+
+    def exit_scope(self):
+        if self.current_scope.parent is not None:
+            self.current_scope = self.current_scope.parent
+        else:
+            raise Exception("Cannot exit global scope.")
+
+    def set_variable(self, name, value):
+        if self.current_scope is not None:
+            self.current_scope.set_variable(name, value)
+
+    def get_variable(self, name):
+        return self.current_scope.get_variable(name)
+    
+    
+ram = Memory()
+ram.set_variable('x', 10)
+ram.enter_scope()
+ram.set_variable('y', 20)
+print(ram.get_variable('x'))  # Output: 10
+print(ram.get_variable('y'))  #Output: 20
+ram.exit_scope()
+ram.get_variable('y')  # This will raise an exception since 'y' is not in the global scope
+
 class dependencyGraph:
     def __init__(self):
         self._nodes = []
@@ -26,7 +90,7 @@ class dependencyGraph:
             edges[node.getName()] = [edge.getName() for edge in node.getEdges()]
         return edges
     
-    def returnAllPointsToX(self, nodeName):
+    def returnAllPointingTo(self, nodeName):
         pointingNodes = []
         for node in self._nodes:
             for edge in node.getEdges():
@@ -34,7 +98,7 @@ class dependencyGraph:
                     pointingNodes.append(node.getName())
         return pointingNodes
     
-    def returnAllXPointsTo(self, nodeName):
+    def returnAllPointedFrom(self, nodeName):
         node = self.findNode(nodeName)
         if node:
             return [edge.getName() for edge in node.getEdges()]
@@ -89,16 +153,3 @@ class Node:
         self._edges = edges
         
 myDepGraph = dependencyGraph()
-myDepGraph.addNode(Node("A"))
-myDepGraph.addNode(Node("B"))
-
-myDepGraph.addEdgeFromXToY("A", "B")
-print(myDepGraph.getEdges())
-print(myDepGraph.returnAllPointsToX("B"))
-print(myDepGraph.returnAllXPointsTo("A"))
-print(myDepGraph.descendants("A"))
-print(myDepGraph.ancestors("B"))
-myDepGraph.addNode(Node("C"))
-myDepGraph.addEdgeFromXToY("B", "C")
-print(myDepGraph.descendants("A"))
-print(myDepGraph.ancestors("C"))
