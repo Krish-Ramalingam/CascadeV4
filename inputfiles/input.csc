@@ -9,13 +9,13 @@
 // out z
 // }
 
-var x = (2 + 2 + 1) * 3
-out x
-3122++*
+hvar x (y) = 2*y
+hvar z (x) = 2*x
 
-221
+var y = 1
+out z
 
-hvar y ( x ) = x^2
-
-
+if z == 4 {
+    out z
+}
 // eq later 

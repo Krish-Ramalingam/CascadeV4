@@ -1,3 +1,5 @@
+"""
+
 class Scope:
     def __init__(self, parent=None):
         self.parent = parent
@@ -153,3 +155,5 @@ class Node:
         self._edges = edges
         
 myDepGraph = dependencyGraph()
+
+"""

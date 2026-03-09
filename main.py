@@ -29,11 +29,14 @@ os.system('cls')
 lexer = lxr.Lexer()
 token_stream = lexer.lexFile("inputfiles/" + x)
 print(token_stream)
+print("\n")
+
 
 #parsing
 parser = psr.ParserNodes(token_stream)
 ast_nodes = parser.parse_program()
 print(ast_nodes)
+print("\n")
 
 #interpreting
 interpreter = itp.Interpreter()

@@ -180,6 +180,26 @@ class Interpreter:
                 b = stack.pop()
                 a = stack.pop()
                 stack.append(a > b)
+            elif typ == '<':
+                b = stack.pop()
+                a = stack.pop()
+                stack.append(a < b)
+            elif typ == '==':
+                b = stack.pop()
+                a = stack.pop()
+                stack.append(a == b)
+            elif typ == '!=':
+                b = stack.pop()
+                a = stack.pop()
+                stack.append(a != b)
+            elif typ == '>=':
+                b = stack.pop()
+                a = stack.pop()
+                stack.append(a >= b)
+            elif typ == '<=':
+                b = stack.pop()
+                a = stack.pop()
+                stack.append(a <= b)
             else:
                 raise Exception(f"Unknown token type: {typ}")
         if len(stack) != 1:
@@ -200,9 +220,8 @@ class Interpreter:
                             self.update_ancestors(self.hyperGraph.findNode(dep))
     # Execute a single node
     def exec_node(self, node):
-        if str(type(node)).split(".")[-1].replace("'>", "") == "HyperVarDeclNode":
-            val = self.eval_expr(node.expr)
-        elif str(type(node)).split(".")[-1].replace("'>", "") == "VarDeclNode":
+        print(str(type(node)).split(".")[-1].replace("'>", ""))
+        if str(type(node)).split(".")[-1].replace("'>", "") == "VarDeclNode":
             if node.expr:
                 val = self.eval_expr(node.expr)
                 self.update_ancestors(node)
