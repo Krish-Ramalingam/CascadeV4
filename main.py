@@ -25,10 +25,17 @@ def select_file():
 x = select_file()
 os.system('cls')
 
+#lexing
 lexer = lxr.Lexer()
 token_stream = lexer.lexFile("inputfiles/" + x)
+print(token_stream)
+
+#parsing
 parser = psr.ParserNodes(token_stream)
 ast_nodes = parser.parse_program()
+print(ast_nodes)
+
+#interpreting
 interpreter = itp.Interpreter()
 interpreter.exec_nodes(ast_nodes)
 

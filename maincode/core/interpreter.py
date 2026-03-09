@@ -219,11 +219,13 @@ class Interpreter:
             val = self.eval_expr(node.expr)
             print(val)
         elif str(type(node)).split(".")[-1].replace("'>", "") == "HyperVarDeclNode":
+            print("hi")
             if node.expr:
                 ex = node.expr
             else:
                 ex = None
             self.hyperenv[node.name] = ex
+            print(self.hyperenv)
             self.hyperdeps[node.name] = node.dependencies
             self.hyperGraph.addNode(HyperNode(node.name, ex))
             for dep in node.dependencies:

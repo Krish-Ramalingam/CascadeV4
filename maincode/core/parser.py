@@ -62,6 +62,7 @@ def dijkstraShuntingYard(tokens):
     precedence = {
         "||": 1,
         "&&": 2,
+        #add = noob
         ">": 3, "<": 3,
         "+": 3, "-": 4,
         "*": 4, "/": 5,
