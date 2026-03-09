@@ -195,24 +195,7 @@ class ParserNodes:
             expr_tokens.append(self.consume())
         return ExprNode(dijkstraShuntingYard(expr_tokens))
     
-tokens_example = [
-    ('out', None), ('var', 'y'), (';', None),
-    ('out', None), ('int', 4), (';', None),
-    ('out', None), ('var', 'tree'), (';', None),
-    ('if', None), ('var', 'tree'), ('>', None), ('int', 4), (';', None), ('{', None),
-        ('out', None), ('var', 'x'), (';', None),
-        ('out', None), ('var', 'y'), (';', None),
-    ('}', None),
-    ('var', 'x'), ('=', None), ('int', 5), (';', None),
-    ('var', 'y'), ('=', None), ('var', 'x'), ('+', None), ('int', 1), (';', None),
-    ('out', None), ('var', 'y'), (';', None)
-]
 
-#parser = ParserNodes(tokens_example)
-#ast_nodes = parser.parse_program()
-
-#for node in ast_nodes:
-    #print(node)
 class HyperDependencyGraph:
     def __init__(self):
         self._nodes = []
@@ -400,7 +383,6 @@ class Interpreter:
  
 
 """
-
 class Interpreter:
     def __init__(self):
         self.variables = {}
@@ -432,4 +414,23 @@ class Interpreter:
                 for stmt in node.block:
                     self.execute(stmt)
                     
+
+tokens_example = [
+    ('out', None), ('var', 'y'), (';', None),
+    ('out', None), ('int', 4), (';', None),
+    ('out', None), ('var', 'tree'), (';', None),
+    ('if', None), ('var', 'tree'), ('>', None), ('int', 4), (';', None), ('{', None),
+        ('out', None), ('var', 'x'), (';', None),
+        ('out', None), ('var', 'y'), (';', None),
+    ('}', None),
+    ('var', 'x'), ('=', None), ('int', 5), (';', None),
+    ('var', 'y'), ('=', None), ('var', 'x'), ('+', None), ('int', 1), (';', None),
+    ('out', None), ('var', 'y'), (';', None)
+]
+
+parser = ParserNodes(tokens_example)
+ast_nodes = parser.parse_program()
+
+for node in ast_nodes:
+    #print(node)
 """
