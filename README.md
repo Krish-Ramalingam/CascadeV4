@@ -7,7 +7,7 @@
 <div>
   <h1>About Cascade</h1>
   <p>
-    CascadeV4 is a high-level dynamic programming language, revamped for the 4th time to make more extensive use of OOP. To run any file, just write any file ending in .csc in Cascade syntax and then run the code in main.py
+    CascadeV4 is a high-level dynamic programming language, revamped for the 4th time to make more extensive use of OOP. To run any file, just write any file ending in .csc in Cascade syntax and then run the main.py file.
     <ul>
       <li>Lexer: Program File -> Token Stream</li>
       <li>Parser: Token Stream -> AST</li>
@@ -20,65 +20,30 @@
 <br>
 
 <div>
-  <h2>Algorithms</h2>
+  <h2>maincode</h2>
   <p>
-    Contains the key algorithms for coding tokeniser and parser - Once finished may be ported over to the classes they're in, so delete when finished
+    Contains all key folders 
   </p>
 </div>
 
 <div>
-  <h2>Data Reference</h2>
+  <h2>core</h2>
   <p>
-    Contains bulk data in dictionaries - Primarily used for classifiers
+    contains the main files for tokenising, parsing, and interpreting
   </p>
 </div>
 
 <div>
-  <h2>HyperVarModules</h2>
+  <h2>dataReference</h2>
   <p>
-    Contains modules related to automatically updating features
+    Contains the files for bulk data lookup
   </p>
 </div>
 
 <div>
-  <h2>masterInterpreter</h2>
+  <h2>validation</h2>
   <p>
-    Contains the main program
-  </p>
-</div>
-
-<div>
-  <h2>misc</h2>
-  <p>
-    Contains testing data stuff
-  </p>
-</div>
-
-<div>
-  <h2>parserModules</h2>
-  <p>
-    Contains Modules which relate to the parsing of the tokens
-  </p>
-</div>
-
-<div>
-  <h2>servantClasses</h2>
-  <p>
-    Contains relevant classes
-  </p>
-</div>
-
-<div>
-  <h2>tokenClasses</h2>
-  <p>
-    Contains classes in relation to tokens
-  </p>
-</div>
-
-<div>
-  <h2>Validation</h2>
-  <p>
-    Contains functions which purely validate data
+   Contains any files for validating data present
   </p>
 </div>
 

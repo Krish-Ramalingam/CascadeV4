@@ -1,16 +1,6 @@
 import os
 from validation import validateTokens as vt
 
-"""
-line1 = "out x // This is an output statement"
-line2 = "var x = 1 + 2 * (3 - 4)"
-line3 = "var y = 3.3"
-line4 = "inp y"
-line5 = "if x > (y + 1) {"
-line6 = "out (x + y) // Output sum"
-line7 = "}"
-"""
-
 class LineLexer:
     def __init__(self):
         self._line = ""
@@ -148,30 +138,6 @@ class LineLexer:
         else:
             self._mode = "empty"
             
-    """
-    def variablesInExpression(self, expression: str):
-        variablesInExpr = False
-        for x in expression:
-            if type(x) == str:
-                if x.isalpha():
-                    variablesInExpr = True
-        return variablesInExpr
-    
-    def tokeniseExpression(self, expression: str):
-        return self.tokeniseArithmeticExpression(expression)
-    
-        if self.variablesInExpression(expression):
-            print("varin")
-            return self.tokeniseVariablesInExpression(expression)
-        else:
-            
-            return self.tokeniseArithmeticExpression(expression)
-
-    def tokeniseVariablesInExpression(self, expression: str):
-        # this is not finished...
-        pass
-    
-    """
     
     def tokenize(self):
         if len(self._line) == 0:
@@ -285,6 +251,7 @@ class Lexer(LineLexer):
             allTokens.extend(tokens)
         return allTokens
     
+"""
 def genTokStream(filename):
     script_dir = os.path.dirname(__file__)
     file_path = os.path.join(script_dir, filename) 
@@ -293,7 +260,6 @@ def genTokStream(filename):
     return tokenStream
 
 
-"""
 script_dir = os.path.dirname(__file__)
 file_path = os.path.join(script_dir, "cascade.txt") 
 myLexer = Lexer()
@@ -303,4 +269,27 @@ for t in tokenStream:
         print(t[0])
     else:
         print(t[0], t[1])
+
+    def variablesInExpression(self, expression: str):
+        variablesInExpr = False
+        for x in expression:
+            if type(x) == str:
+                if x.isalpha():
+                    variablesInExpr = True
+        return variablesInExpr
+    
+    def tokeniseExpression(self, expression: str):
+        return self.tokeniseArithmeticExpression(expression)
+    
+        if self.variablesInExpression(expression):
+            print("varin")
+            return self.tokeniseVariablesInExpression(expression)
+        else:
+            
+            return self.tokeniseArithmeticExpression(expression)
+
+    def tokeniseVariablesInExpression(self, expression: str):
+        # this is not finished...
+        pass
+    
 """
