@@ -205,7 +205,8 @@ class LineLexer:
                 self._finalTokens.append(("var", self._tempTokens[i]))
         self._finalTokens.append(("=", None))
         expression = " ".join(self._tempTokens[self._tempTokens.index('=')+1:])
-        tokenizedExpr = self.tokeniseArithmeticExpression(expression)
+        new_expr = self.concatenateShorthandMultiply(expression)
+        tokenizedExpr = self.tokeniseArithmeticExpression(new_expr)
         if tokenizedExpr:
             self._finalTokens.extend(tokenizedExpr)
             self._finalTokens.append((";", None))
@@ -217,15 +218,18 @@ class LineLexer:
         self._finalTokens.append(("var", self._tempTokens[1]))
         self._finalTokens.append(("=", None))
         expression = " ".join(self._tempTokens[3:])
-        tokenizedExpr = self.tokeniseArithmeticExpression(expression)
+        new_expr = self.concatenateShorthandMultiply(expression)
+        tokenizedExpr = self.tokeniseArithmeticExpression(new_expr)
         if tokenizedExpr:
             self._finalTokens.extend(tokenizedExpr)
             self._finalTokens.append((";", None))
             
+            
     def tokenizeOutput(self):
         # expression in the form out expression
         expression = " ".join(self._tempTokens[1:])
-        tokenisedExpr = self.tokeniseArithmeticExpression(expression)
+        new_expr = self.concatenateShorthandMultiply(expression)
+        tokenisedExpr = self.tokeniseArithmeticExpression(new_expr)
         self._finalTokens.append(("out", None))
         self._finalTokens.extend(tokenisedExpr)
         self._finalTokens.append((";", None))  # Add newline token after output expression
@@ -243,7 +247,8 @@ class LineLexer:
         conditionEnd = self._tempTokens.index('{')
         condition = " ".join(self._tempTokens[1:conditionEnd])
         self._finalTokens.append((controlKey, None))
-        tokenizedCondition = self.tokeniseLogicalExpression(condition)
+        new_condition = self.concatenateShorthandMultiply(condition)
+        tokenizedCondition = self.tokeniseLogicalExpression(new_condition)
         self._finalTokens.extend(tokenizedCondition)
         # The rest can be handled as needed (e.g., body of control structure)
         self._finalTokens.append((";", None))
@@ -275,7 +280,8 @@ class LineLexer:
         self._finalTokens.append(("var", self._tempTokens[0]))
         self._finalTokens.append(("=", None))
         expression = " ".join(self._tempTokens[2:])
-        tokenizedExpr = self.tokeniseArithmeticExpression(expression)
+        new_expr = self.concatenateShorthandMultiply(expression)
+        tokenizedExpr = self.tokeniseArithmeticExpression(new_expr)
         if tokenizedExpr:
             self._finalTokens.extend(tokenizedExpr)
             self._finalTokens.append((";", None))
@@ -293,10 +299,27 @@ class LineLexer:
                 self._finalTokens.append(("var", self._tempTokens[i]))
         self._finalTokens.append(("=", None))
         expression = " ".join(self._tempTokens[self._tempTokens.index(':=')+1:])
-        tokenizedExpr = self.tokeniseArithmeticExpression(expression)
+        new_expr = self.concatenateShorthandMultiply(expression)
+        tokenizedExpr = self.tokeniseArithmeticExpression(new_expr)
         if tokenizedExpr:
             self._finalTokens.extend(tokenizedExpr)
             self._finalTokens.append((";", None))
+            
+    def concatenateShorthandMultiply(self, expr):
+        # This function is used to handle cases where multiplication is implied, e.g. "2x"
+        # Expression is in string form, e.g. "2x + 3y" or "2(x + 1)"
+        new_expr = ""
+        for i in range(len(expr)):
+            if i < len(expr) - 1:
+                if expr[i] != ' ' and expr[i+1] != ' ':
+                    if (expr[i].isdigit() or expr[i] == ')') and (expr[i+1].isalpha() or expr[i+1] == '('):
+                        new_expr += expr[i] + '*'  # Insert multiplication operator
+                else:
+                    new_expr += expr[i]
+            else:
+                new_expr += expr[i]
+        return new_expr
+                
         
         
         
