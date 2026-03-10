@@ -1,40 +1,39 @@
------< 
-open comments
-x = 5
-y (x) := 2*x
-for i in 1..x {
-    out i
-}
-close comments
------> 
+-----<
 
-var y = 1
-out y
+x = 0
+y := 3x - 1
+x
+while x < 10 {
+    y
+    x = x + 1
+}
+x
+
+for i in 1..x {
+    x = x - 1
+    x
+}
+
+----->
 
 -----<
-var y = 28932
-y 
-b = 3
-c = 4
-a (b c) := 3*b + 4*c
-out a
------> 
+dist X (Norm 3 2)
+dist Y (Die 5)
+z = E(X + Y) 
+z
+dist X (PMF [0 0.5] [1 0.5])
+----->
 
-y = 1
-y
-
-z (x) := 4*x - 1
-for x in 1..60 {
-    z
+-----< 
+func woof (x y) {
+    z = x + y
+    return z
 }
 
+woof (5 4)
+----->
 
-cost = 1
-tax = 1
-price (cost tax) := 5*cost
-while price < 50 {
-    cost = cost + 1
-}
-cost
-price
-tax
+-----<
+When you import a library, you essentially add new keywords into the program, and therefore it is important that libraries do not have any conflicting keywords - theres not enough libraries to justify using the bullet point tbh....
+
+----->

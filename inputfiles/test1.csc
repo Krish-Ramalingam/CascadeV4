@@ -12,7 +12,6 @@ for i in 1..10 {
     y_1
     y_2
 }
-
 ----->
 
 
@@ -25,6 +24,7 @@ for x in 1..10 {
         x
         y
         z
+        "The number is"
     }
 }
 ----->

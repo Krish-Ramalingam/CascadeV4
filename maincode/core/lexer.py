@@ -308,16 +308,16 @@ class LineLexer:
     def concatenateShorthandMultiply(self, expr):
         # This function is used to handle cases where multiplication is implied, e.g. "2x"
         # Expression is in string form, e.g. "2x + 3y" or "2(x + 1)"
+        print(expr)
         new_expr = ""
         for i in range(len(expr)):
             if i < len(expr) - 1:
-                if expr[i] != ' ' and expr[i+1] != ' ':
                     if (expr[i].isdigit() or expr[i] == ')') and (expr[i+1].isalpha() or expr[i+1] == '('):
                         new_expr += expr[i] + '*'  # Insert multiplication operator
-                else:
-                    new_expr += expr[i]
-            else:
-                new_expr += expr[i]
+                    else:
+                        new_expr += expr[i]
+        new_expr += expr[i]
+        print(new_expr)
         return new_expr
                 
         
