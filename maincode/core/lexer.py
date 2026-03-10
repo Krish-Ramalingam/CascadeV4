@@ -7,6 +7,7 @@ class LineLexer:
         self._finalTokens = []
         self._mode = None
         self._tempTokens = []
+        self.commentsOn = False
         
     def loadLine(self, line: str):
         self._line = ""
@@ -15,10 +16,17 @@ class LineLexer:
         self._tempTokens = []
         if not isinstance(line, str):
             raise TypeError("Line must be a string")
-        if "//" in line:
+        
+        if "-----<" in line or "----->" in line:
+            self.commentsOn = not self.commentsOn
+            self._line = ""
+        elif "//" in line and not self.commentsOn:
             self._line = line.split("//")[0].strip()  # Remove comments
-        else:
+        elif not self.commentsOn:
             self._line = line.strip()
+        elif self.commentsOn:
+            self._line = ""
+        
      
     def getFinalTokens(self):
         return self._finalTokens
@@ -133,8 +141,17 @@ class LineLexer:
                     self._mode = "input"
                 case "hvar":
                     self._mode = "hassign"
+                case "for":
+                    self._mode = "for"
                 case _:
-                    self._mode = "control" 
+                    self._mode = "control"
+                
+            if len(self._tempTokens) == 1 and self._tempTokens[0] != "}":
+                self._mode = "shortOut"
+            if "=" in self._tempTokens and self._mode == "control":
+                self._mode = "shortAssign"
+            if ":=" in self._tempTokens and self._mode == "control":
+                self._mode = "shortHyperAssign"
         else:
             self._mode = "empty"
             
@@ -162,6 +179,14 @@ class LineLexer:
                     self.tokenizeControl()
                 case "hassign":
                     self.tokenizeHyperAssignment()
+                case "for":
+                    self.tokenizeFor()
+                case "shortOut":
+                    self.tokenizeShortOutput()
+                case "shortAssign":
+                    self.tokenizeShortAssignment()
+                case "shortHyperAssign":
+                    self.tokenizeShortHyperAssign()
                 case "empty":
                     pass
         
@@ -173,6 +198,10 @@ class LineLexer:
         self._finalTokens.append(("var", self._tempTokens[1]))
         for i in range(2, self._tempTokens.index('=')):
             if self._tempTokens[i] != '(' and self._tempTokens[i] != ')':
+                if "(" in self._tempTokens[i]:
+                    self._tempTokens[i] = self._tempTokens[i].replace("(", "")
+                if ")" in self._tempTokens[i]:
+                    self._tempTokens[i] = self._tempTokens[i].replace(")", "")
                 self._finalTokens.append(("var", self._tempTokens[i]))
         self._finalTokens.append(("=", None))
         expression = " ".join(self._tempTokens[self._tempTokens.index('=')+1:])
@@ -220,6 +249,58 @@ class LineLexer:
         self._finalTokens.append((";", None))
         self._finalTokens.append(("{", None))
 
+    def tokenizeFor(self):
+        # expression in the form for varName in start..end { ... }
+        #print(self._tempTokens)
+        self._finalTokens.append(("for_kw", None))
+        self._finalTokens.append(("var", self._tempTokens[1]))
+        self._finalTokens.append(("in_kw", None))
+        rangeStart = self._tempTokens[3][0:self._tempTokens[3].index('..')]
+        rangeEnd = self._tempTokens[3][self._tempTokens[3].index('..')+2:]
+        self._finalTokens.append(("int", rangeStart))
+        self._finalTokens.append(("range_sep", None))
+        self._finalTokens.append(("int", rangeEnd))
+        # The rest can be handled as needed (e.g., body of for loop)
+        self._finalTokens.append((";", None))
+        self._finalTokens.append(("{", None))
+        
+    def tokenizeShortOutput(self):
+        # used as a shorthand for outputting a single variable, e.g. "x" instead of "out x"
+        self._finalTokens.append(("out", None))
+        self._finalTokens.append(("var", self._tempTokens[0]))
+        self._finalTokens.append((";", None))
+        
+    def tokenizeShortAssignment(self):
+        self._finalTokens.append(("var_kw", None))
+        self._finalTokens.append(("var", self._tempTokens[0]))
+        self._finalTokens.append(("=", None))
+        expression = " ".join(self._tempTokens[2:])
+        tokenizedExpr = self.tokeniseArithmeticExpression(expression)
+        if tokenizedExpr:
+            self._finalTokens.extend(tokenizedExpr)
+            self._finalTokens.append((";", None))
+            
+    def tokenizeShortHyperAssign(self):
+        self._finalTokens.append(("hvar_kw", None))
+        self._finalTokens.append(("var", self._tempTokens[0]))
+        for i in range(1, self._tempTokens.index(':=')):
+            if self._tempTokens[i] != '(' and self._tempTokens[i] != ')':
+                print(self._tempTokens[i])
+                if "(" in self._tempTokens[i]:
+                    self._tempTokens[i] = self._tempTokens[i].replace("(", "")
+                if ")" in self._tempTokens[i]:
+                    self._tempTokens[i] = self._tempTokens[i].replace(")", "")
+                self._finalTokens.append(("var", self._tempTokens[i]))
+        self._finalTokens.append(("=", None))
+        expression = " ".join(self._tempTokens[self._tempTokens.index(':=')+1:])
+        tokenizedExpr = self.tokeniseArithmeticExpression(expression)
+        if tokenizedExpr:
+            self._finalTokens.extend(tokenizedExpr)
+            self._finalTokens.append((";", None))
+        
+        
+        
+        
 class Lexer(LineLexer):
     def __init__(self):
         super().__init__()

@@ -14,6 +14,12 @@ class HyperVarDeclNode(Node):
         self.name = name
         self.dependencies = dependencies
         self.expr = expr
+        
+    def checkDependenciesMatchExpr(self):
+        for var in self.expr.tokens:
+            if var[0] == "var" and var[1] not in self.dependencies:
+                self.dependencies.append(var[1])
+            
     def __repr__(self):
         return f"HyperVarDecl({self.name}, {self.dependencies}, {self.expr})" 
 class OutNode(Node):
@@ -55,6 +61,16 @@ class WhileNode(Node):
         self.block = block
     def __repr__(self):
         return f"While({self.condition}, {self.block})"
+
+class ForNode(Node):
+    # in the form: for x in 1..10  { ... }
+    def __init__(self, variable, start, end, block):
+        self.variable = variable
+        self.start = start
+        self.end = end
+        self.block = block
+    def __repr__(self):
+        return f"For({self.variable}, {self.start}, {self.end}, {self.block})"
     
 
 
@@ -179,11 +195,31 @@ class ParserNodes:
             self.consume('=')
             expr = self.parse_expression()
             self.consume(';')
-            return HyperVarDeclNode(var_name, dependencies, expr)
+            hypernode = HyperVarDeclNode(var_name, dependencies, expr)
+            hypernode.checkDependenciesMatchExpr()
+            return hypernode
+        
+        elif tok[0] == 'for_kw':
+            self.consume('for_kw')                 # consume 'for' keyword
+            var_name_tok = self.consume('var')     # consume loop variable identifier
+            var_name = var_name_tok[1]
+            self.consume('in_kw')                  # consume 'in' keyword
+            range_start_tok = self.consume()  # consume range start
+            range_start = range_start_tok[1]
+            self.consume('range_sep')              # consume '..' token
+            range_end_tok = self.consume()    # consume range end
+            range_end = range_end_tok[1]
+            self.consume(';')                    # consume ';' token
+            self.consume('{')
+            block = self.parse_block()
+            return ForNode(var_name, range_start, range_end, block)
         else:
             expr = self.parse_expression()
             self.consume(';')
             return ExprStmtNode(expr)
+        
+        
+            
 
     def parse_block(self):
         stmts = []

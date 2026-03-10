@@ -25,23 +25,13 @@ def select_file():
 x = select_file()
 os.system('cls')
 
-with open("devlog.txt", "w") as f:
-    f.write("")
 
-def writeToDevLog(logs):
-    with open("devlog.info", "a") as f:
-        for log in logs:
-            if type(log[1]) == str or type(log[1]) == int or type(log[1]) == float:
-                f.write(log[0] + ": " + str(log[1]) + "\n")
-            else:
-                f.write(log[0] + "\n")
-            
 #lexing
 lexer = lxr.Lexer()
 token_stream = lexer.lexFile("inputfiles/" + x)
 print(token_stream)
 print("\n")
-writeToDevLog(token_stream)
+
 
 #parsing
 parser = psr.ParserNodes(token_stream)
@@ -54,6 +44,7 @@ interpreter = itp.Interpreter()
 interpreter.exec_nodes(ast_nodes)
 
 
+
 """
 lexer = lxr.Lexer()
 token_stream = lexer.lexFile(file_contents)
@@ -61,5 +52,16 @@ parser = psr.ParserNodes(token_stream)
 ast_nodes = parser.parse_program()
 interpreter = itp.Interpreter()
 interpreter.exec_nodes(ast_nodes)
-"""
+
     
+with open("devlog.info", "w") as f:
+    f.write("")
+
+def writeToDevLog(logs):
+    with open("devlog.info", "a") as f:
+        for log in logs:
+            if type(log[1]) == str or type(log[1]) == int or type(log[1]) == float:
+                f.write(log[0] + ": " + str(log[1]) + "\n")
+            else:
+                f.write(log[0] + "\n")
+"""

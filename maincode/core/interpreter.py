@@ -51,6 +51,16 @@ class WhileNode(Node):
     def __repr__(self):
         return f"While({self.condition}, {self.block})"
 
+class ForNode(Node):
+    # in the form: for x in 1..10  { ... }
+    def __init__(self, variable, start, end, block):
+        self.variable = variable
+        self.start = start
+        self.end = end
+        self.block = block
+    def __repr__(self):
+        return f"For({self.variable}, {self.start}, {self.end}, {self.block})"
+    
 class HyperDependencyGraph:
     def __init__(self):
         self._nodes = []
@@ -224,6 +234,7 @@ class Interpreter:
         if str(type(node)).split(".")[-1].replace("'>", "") == "VarDeclNode":
             if node.expr:
                 val = self.eval_expr(node.expr)
+                #print(f"Updated {node.name} to {val}")
                 self.update_ancestors(node)
             else:
                 val = None
@@ -231,6 +242,7 @@ class Interpreter:
         elif str(type(node)).split(".")[-1].replace("'>", "") == "ExprStmtNode":
             self.eval_expr(node.expr)
         elif str(type(node)).split(".")[-1].replace("'>", "") == "IfNode":
+            print("Evaluating condition for if statement: ", node.condition)
             cond_val = self.eval_expr(node.condition)
             if cond_val:
                 self.exec_nodes(node.block)
@@ -250,7 +262,19 @@ class Interpreter:
         elif str(type(node)).split(".")[-1].replace("'>", "") == "WhileNode":
             while self.eval_expr(node.condition):
                 self.exec_nodes(node.block)
-                
+        elif str(type(node)).split(".")[-1].replace("'>", "") == "ForNode":
+            var_name = node.variable
+            if node.start.isdigit():
+                start_val = int(node.start)
+            else:
+                start_val = self.env[node.start] if node.start in self.env else self.hyperenv[node.start]
+            if node.end.isdigit():
+                end_val = int(node.end)
+            else:
+                end_val = self.env[node.end] if node.end in self.env else self.hyperenv[node.end]
+            for i in range(start_val, end_val + 1):
+                self.env[var_name] = i
+                self.exec_nodes(node.block)
         
             
         else:
