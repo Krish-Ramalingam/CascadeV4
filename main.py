@@ -13,6 +13,8 @@ def select_file():
         print("No input files found in the inputfiles directory. Run the program again after adding an input file to the inputfiles directory.")
     elif len(cscfiles) > 1:
         desired_file = input("Multiple input files found in the inputfiles directory. Which file would you like to use?" + "\n" + "\n".join(cscfiles) + "\n")
+        if desired_file[-4:] != ".csc":
+            desired_file = desired_file + ".csc"
         if desired_file not in cscfiles:
             print("Invalid file name. Please select a valid file.")
             select_file()
@@ -29,15 +31,15 @@ os.system('cls')
 #lexing
 lexer = lxr.Lexer()
 token_stream = lexer.lexFile("inputfiles/" + x)
-print(token_stream)
-print("\n")
+#print(token_stream)
+#print("\n")
 
 
 #parsing
 parser = psr.ParserNodes(token_stream)
 ast_nodes = parser.parse_program()
-print(ast_nodes)
-print("\n")
+#print(ast_nodes)
+#print("\n")
 
 #interpreting
 interpreter = itp.Interpreter()
