@@ -19,6 +19,85 @@
 <br>
 <br>
 
+<h1>Syntax</h1>
+  <p>
+    Declaring/Modifying Variables
+    <ul>
+      <li>var x = 1</li>
+      <li>x = 1</li>
+    </ul>
+  </p>
+
+  <p>
+    Declaring/Modifying Hypervariables
+    <ul>
+      <li>hvar x (y z) = y + z</li>
+      <li>x (y z) := y + z</li>
+      <li>x := y + z // arguments are autocompleted</li>
+    </ul>
+  </p>
+
+  <p>
+    For Statements
+    <ul>
+      <li>for x in 1..10 { ... }</li>
+      <li>for x in 1..y { ... }</li>
+    </ul>
+  </p>
+
+  <p>
+    While Statements
+    <ul>
+      <li>while x > y { ... }</li>
+    </ul>
+  </p>
+
+  <p>
+    If Statements
+    <ul>
+      <li>if x > y { ... }</li>
+    </ul>
+  </p>
+  
+  <p>
+    Comments
+    <ul>
+      <li>// This is a comment</li>
+    </ul>
+  </p>
+
+  <p>
+    Multi-line Comments
+    <ul>
+      <li> Example in code, HTML formatting messing it up </li>
+    </ul>
+  </p>
+
+  <p>
+    Expressions
+    <ul>
+      <li> (2*x) + (3*y) </li>
+      <li> 2*x + 3*y //autobidmas </li>
+      <li> 2x + 3y //mathematics notation, however cannot do ab, since it is interpreted as a new variable, ab</li>
+    </ul>
+  </p>
+
+  <p>
+    Expressions
+    <ul>
+      <li> IMPROVED ERROR MESSAGES: COMING EXTREMELY SHORTLY!!!!!!!!!! </li>
+      <li> LIBRARIES: COMING VERY SOON!!!!! </li>
+      <li> WHEN STATEMENTS: COMING SOON! </li>
+      <li> ONCE STATEMENTS: COMING LESS SOON... </li>
+      <li> FUNCTIONS: COMING EVENTUALLY... PROBABLY. </li>
+      <li> OOP: COMING... PROBABLY NEVER. </li>
+    </ul>
+  </p>
+  
+
+  
+
+
 <div>
   <h2>maincode</h2>
   <p>
