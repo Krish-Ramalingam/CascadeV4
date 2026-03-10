@@ -81,16 +81,21 @@
       <li> 2x + 3y //mathematics notation, however cannot do ab, since it is interpreted as a new variable, ab</li>
     </ul>
   </p>
+
+  <p>
+    Expressions
+    <ul>
+      <li> IMPROVED ERROR MESSAGES: COMING EXTREMELY SHORTLY!!!!!!!!!! </li>
+      <li> LIBRARIES: COMING VERY SOON!!!!! </li>
+      <li> WHEN STATEMENTS: COMING SOON! </li>
+      <li> ONCE STATEMENTS: COMING LESS SOON... </li>
+      <li> FUNCTIONS: COMING EVENTUALLY... PROBABLY. </li>
+      <li> OOP: COMING... PROBABLY NEVER. </li>
+    </ul>
+  </p>
   
 
   
-
-  
-
-
-
-
-
 
 
 <div>
