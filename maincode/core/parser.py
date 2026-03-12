@@ -168,7 +168,7 @@ class ParserNodes:
             # optional semicolon before block
             if self.peek() and self.peek()[0] == ';':
                 self.consume(';')
-            self.consume('{')
+            self.consume('{') 
             block = self.parse_block()
             return WhileNode(cond, block)
 

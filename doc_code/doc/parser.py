@@ -195,10 +195,10 @@ class ParserNodes:
     def parse_statement(self):
         """
         appropriate statement parser based on the current token
-        Regular expression-statement if no keyword is matched
+        regular expression-statement if no keyword is matched
         """
         tok = self.peek()
-        if tok[0] == 'out':
+        if tok[0] == 'out': #used for out syntax
             self.consume('out')
             expr = self.parse_expression()
             self.consume(';')
@@ -207,7 +207,7 @@ class ParserNodes:
         elif tok[0] == 'if':
             self.consume('if')
             cond = self.parse_expression()
-            # Tolerate an optional semicolon between the condition and the block
+            # optional semicolon between the condition and the block
             if self.peek() and self.peek()[0] == ';':
                 self.consume(';')
             self.consume('{')
@@ -217,7 +217,7 @@ class ParserNodes:
         elif tok[0] == 'while':
             self.consume('while')
             cond = self.parse_expression()
-            # Tolerate an optional semicolon between the condition and the block
+            # optional semicolon between the condition and the block
             if self.peek() and self.peek()[0] == ';':
                 self.consume(';')
             self.consume('{')
@@ -240,7 +240,7 @@ class ParserNodes:
             var_name_tok = self.consume('var')     # consume hypervariable identifier
             var_name = var_name_tok[1]
             dependencies = []
-            # Collect any explicitly listed dependency variables before the '='
+            # collecting any explicitly listed dependency variables before the '='
             while self.peek() and self.peek()[0] == 'var':
                 dep_tok = self.consume('var')
                 dependencies.append(dep_tok[1])
@@ -248,15 +248,15 @@ class ParserNodes:
             expr = self.parse_expression()
             self.consume(';')
             hypernode = HyperVarDeclNode(var_name, dependencies, expr)
-            # Also scan the expression itself for implicit dependencies
+            # scan the expression itself for implicit dependencies
             hypernode.checkDependenciesMatchExpr()
             return hypernode
         
         elif tok[0] == 'for_kw':
-            self.consume('for_kw')                 # consume 'for' keyword
+            self.consume('for_kw')                 # consume 'for'
             var_name_tok = self.consume('var')     # consume loop variable identifier
             var_name = var_name_tok[1]
-            self.consume('in_kw')                  # consume 'in' keyword
+            self.consume('in_kw')                  # consume 'in'
             range_start_tok = self.consume()  # consume range start
             range_start = range_start_tok[1]
             self.consume('range_sep')              # consume '..' token
@@ -272,8 +272,6 @@ class ParserNodes:
             expr = self.parse_expression()
             self.consume(';')
             return ExprStmtNode(expr)
-        
-        
 
     def parse_block(self):
         """parse statements until a closing '}' is reached then consume it"""

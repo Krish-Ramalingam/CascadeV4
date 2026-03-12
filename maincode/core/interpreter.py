@@ -163,7 +163,7 @@ class Interpreter:
         stack = []
         for tok in expr_node.tokens:
             typ, val = tok
-            if typ == 'int':
+            if typ == 'int' or typ == 'float':
                 stack.append(val)
             elif typ == 'var':
      
@@ -214,8 +214,10 @@ class Interpreter:
                 raise Exception(f"Unknown token type: {typ}")
         if len(stack) != 1:
             raise Exception(f"Malformed expression: {expr_node.tokens}")
+        if abs(round(stack[0]) - stack[0]) < 10**(-10):
+            return round(stack[0])
         return stack[0]
-
+    
     # Execute a list of nodes
     def exec_nodes(self, nodes):
         for node in nodes:

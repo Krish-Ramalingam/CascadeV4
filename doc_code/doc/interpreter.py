@@ -212,17 +212,11 @@ class Interpreter:
 
     def eval_expr(self, expr_node):
         """
-        Evaluate a postfix (RPN) ExprNode and return its computed value.
+        evaluate a postfix expr return its computed value
 
-        Uses a stack machine: data tokens are pushed, operators pop their operands
+        uses a stack machine: data tokens are pushed, operators pop their operands
         and push the result. Supports arithmetic (+, -, *, /, ^), comparisons
         (>, <, ==, !=, >=, <=), and variable lookups from both env and hyperenv.
-
-        Hypervariable references are resolved recursively — their stored expression
-        is re-evaluated on each access to reflect any updated dependencies.
-
-        Raises if a variable is undefined, an unknown token type is encountered,
-        or the stack doesn't resolve to exactly one value (malformed expression).
         """
         stack = []
         for tok in expr_node.tokens:
@@ -238,6 +232,7 @@ class Interpreter:
                 else:
                     stack.append(self.eval_expr(self.hyperenv[val]))
             elif typ in ['+', '-', '*', '/', '^']:
+                #matches the operation to the logic to be performed
                 b = stack.pop()
                 a = stack.pop()
                 if typ == '+':
@@ -302,21 +297,21 @@ class Interpreter:
 
     def exec_node(self, node):
         """
-        Dispatch execution for a single AST node based on its type.
+        execution for a single AST node based on its type
 
         Uses string-based type inspection rather than isinstance() — this keeps
         the interpreter decoupled from the specific parser module that produced
-        the nodes. Each branch handles one statement type:
+        the nodes
 
           VarDeclNode       — evaluate RHS, store in env, propagate to dependents
           ExprStmtNode      — evaluate expression for side-effects, discard result
-          IfNode            — evaluate condition; execute block only if truthy
+          IfNode            — evaluate condition; execute block only if true
           OutNode           — evaluate expression and print the result
           HyperVarDeclNode  — register expression and dependencies in hyperenv/graph
           WhileNode         — repeatedly evaluate condition and execute block
           ForNode           — iterate a loop variable over an integer range (inclusive)
 
-        Raises on any unrecognised node type.
+        raises on any unrecognised node type.
         """
         # print(str(type(node)).split(".")[-1].replace("'>", ""))
         if str(type(node)).split(".")[-1].replace("'>", "") == "VarDeclNode":

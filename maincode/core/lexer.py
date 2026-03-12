@@ -291,7 +291,6 @@ class LineLexer:
         self._finalTokens.append(("var", self._tempTokens[0]))
         for i in range(1, self._tempTokens.index(':=')):
             if self._tempTokens[i] != '(' and self._tempTokens[i] != ')':
-                print(self._tempTokens[i])
                 if "(" in self._tempTokens[i]:
                     self._tempTokens[i] = self._tempTokens[i].replace("(", "")
                 if ")" in self._tempTokens[i]:
@@ -308,7 +307,6 @@ class LineLexer:
     def concatenateShorthandMultiply(self, expr):
         # This function is used to handle cases where multiplication is implied, e.g. "2x"
         # Expression is in string form, e.g. "2x + 3y" or "2(x + 1)"
-        print(expr)
         new_expr = ""
         for i in range(len(expr)):
             if i < len(expr) - 1:
@@ -317,7 +315,6 @@ class LineLexer:
                     else:
                         new_expr += expr[i]
         new_expr += expr[i]
-        print(new_expr)
         return new_expr
                 
         
